@@ -1,9 +1,16 @@
 <title> Visailusivusto </title>
 <h1> Visailusivusto </h1>
 <br>
-<h3> Pelattavat visat </h3>
+{% if session.user_id %}
+<a href="/quizzes"> <h3> Pelattavat visat </h3> </a>
 <br>
-<h3> Omat Visat </h3>
+<a href="/new"> <h3> Luo oma visa </h3> </a>
 <br>
-<h3> Profiili </h3>
+<a href="/profile/"> <h3> Profiili </h3> </a>
 <br>
+<a href="/logout"> Kirjaudu ulos </a>
+{% else %}
+<h3> Et ole kirjautunut sisään </h3>
+<p> Jos haluat pelata tai luoda visoja, sinun on ensin luotava tunnus tai kirjauttava sisään</p>
+<a href="/login"> Kirjaudu sisään </a> | <a href="/register"> Luo tunnus </a>
+{% endif %}
