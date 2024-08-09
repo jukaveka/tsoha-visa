@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, url_for
 import users, quizzes
 
 @app.route("/")
@@ -19,19 +19,32 @@ def new():
 def create():
 	name = request.form["name"]
 	category = request.form["category"]
-	if quizzes.create(name, category):
-		return redirect("/create/question")
+	quiz_id = quizzes.create(name, category)
+	if quiz_id != False:
+		return render_template("question.html", quiz_id=quiz_id)
 	else:
 		return render_template("error.html", message="Visan luonti epäonnistui.")
-	
+
 @app.route("/create/question", methods=["GET", "POST"])
 def create_question():
 	if request.method == "GET":
 		return render_template("question.html")
 	if request.method == "POST":
+		quiz_id = request.form["quizId"]
 		question = request.form["question"]
-		choices = request.form["option1", "option2", "option3", "option4"]
-		# Tästä jatketaan
+		choice1 = request.form["option1"]
+		choice2 = request.form["option2"]
+		choice3 = request.form["option3"]
+		choice4 = request.form["option4"]
+		choices = [choice1, choice2, choice3, choice4]
+		answer = request.form["options"]
+
+		count = quizzes.add_question(quiz_id, question, choices, answer)
+
+		if count == 5:
+			return redirect("/")
+		else:
+			return render_template("question.html", quiz_id=quiz_id)
 
 """
 @app.route("/quizzes/<int:id>")
