@@ -1,10 +1,10 @@
-<form action="/new" method="POST">
+<form action="/create" method="post">
     <h2> Visan luonti </h2>
     <h4> Nimeä visasi </h4>
     <input type="text" name="name">
     <p>
     <h4> Valitse kategoria </h4>
-    <input list="categories">
+    <input list="categories" id="category" name="category">
     <datalist id="categories">
         <option value="Sports">
         <option value="TV and Movies">
@@ -25,7 +25,6 @@
         <option value="Trivia">
     </datalist>
     </p>
-
     <!--
     <h4> Lisää 1. kysymys </h4>
     <input type="text" name="question1">
@@ -53,5 +52,5 @@
     </datalist>
     <br><br>
     -->
-    <input type="Submit" value="Luo visa">
+    <input type="submit" value="Luo visa">
 </form>

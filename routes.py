@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, redirect, request
-import users #, quizzes
+import users, quizzes
 
 @app.route("/")
 def index():
@@ -11,12 +11,18 @@ def index():
 def quizzes():
 """
 
-@app.route("/new", methods=["GET", "POST"])
+@app.route("/new")
 def new():
-	if request.method == "POST":
-		return 0
+	return(render_template("new.html"))
+
+@app.route("/create", methods=["POST"])
+def create():
+	name = request.form["name"]
+	category = request.form["category"]
+	if quizzes.create(name, category):
+		return redirect("/")
 	else:
-		return(render_template("new.html"))
+		return render_template("error.html", message="Visan luonti epäonnistui.")
 
 """
 @app.route("/quizzes/<int:id>")
