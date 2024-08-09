@@ -7,14 +7,18 @@ def index():
 	return(render_template("index.html"))
 
 """
-@app.route("/quizzes/")
+@app.route("/quizzes")
 def quizzes():
+"""
 
+@app.route("/new", methods=["GET", "POST"])
+def new():
+	if request.method == "POST":
+		return 0
+	else:
+		return(render_template("new.html"))
 
-@app.route("/quizzes/new/")
-def new_quiz():
-
-
+"""
 @app.route("/quizzes/<int:id>")
 def quiz():
 """
