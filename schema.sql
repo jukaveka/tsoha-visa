@@ -1,6 +1,6 @@
 CREATE TABLE users (id SERIAL PRIMARY KEY, nickname TEXT, password TEXT, role TEXT);
 
-CREATE TYPE quiz_category AS ENUM ('Sport', 'TV and Movies', 'Music', 'Video games', 'Literature', 'Politics', 'Geography', 'History', 'Business', 'Technology', 'General', 'Science', 'Math', 'Biology', 'Culinary', 'Culture', 'Trivia');
+CREATE TYPE quiz_category AS ENUM ('Sports', 'TV and Movies', 'Music', 'Video games', 'Literature', 'Politics', 'Geography', 'History', 'Business', 'Technology', 'General', 'Science', 'Math', 'Biology', 'Culinary', 'Culture', 'Trivia');
 
 CREATE TABLE quizzes (id SERIAL PRIMARY KEY, creator_id INTEGER REFERENCES users, name TEXT, category quiz_category);
 
