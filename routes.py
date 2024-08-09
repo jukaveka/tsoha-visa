@@ -20,9 +20,18 @@ def create():
 	name = request.form["name"]
 	category = request.form["category"]
 	if quizzes.create(name, category):
-		return redirect("/")
+		return redirect("/create/question")
 	else:
 		return render_template("error.html", message="Visan luonti epäonnistui.")
+	
+@app.route("/create/question", methods=["GET", "POST"])
+def create_question():
+	if request.method == "GET":
+		return render_template("question.html")
+	if request.method == "POST":
+		question = request.form["question"]
+		choices = request.form["option1", "option2", "option3", "option4"]
+		# Tästä jatketaan
 
 """
 @app.route("/quizzes/<int:id>")
