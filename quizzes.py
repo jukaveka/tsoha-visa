@@ -3,6 +3,16 @@ from flask import session
 import users
 from sqlalchemy.sql import text
 
+def quiz_list():
+	try:
+		sql = text("SELECT * FROM quizzes ORDER BY id DESC")
+		quizzes = db.session.execute(sql).fetchall()
+		db.session.commit()
+	except:
+		return False
+
+	return quizzes
+
 def create(name, category):
 	try:
 		creator_id = users.user_id()

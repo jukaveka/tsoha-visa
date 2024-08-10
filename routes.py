@@ -6,10 +6,12 @@ import users, quizzes
 def index():
 	return(render_template("index.html"))
 
-"""
-@app.route("/quizzes")
-def quizzes():
-"""
+@app.route("/browse")
+def browse():
+	quiz_list = quizzes.quiz_list()
+	for quiz in quiz_list:
+		print(quiz)
+	return render_template("play.html", quiz_list=quiz_list)
 
 @app.route("/new")
 def new():

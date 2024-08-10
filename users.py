@@ -5,9 +5,13 @@ from sqlalchemy.sql import text
 
 
 def login(username, password):
-	sql = text("SELECT id, password FROM users WHERE nickname=:username")
+	print(username, password)
+	hash = generate_password_hash(password)
+	print(username, hash)
+	sql = text("SELECT id, nickname, password FROM users WHERE nickname=:username")
 	result = db.session.execute(sql, {"username":username})
 	user = result.fetchone()
+	print(user.nickname, user.password)
 	if not user:
 		return False
 	else:

@@ -1,0 +1,11 @@
+<h2> Selaa ja pelaa visoja </h2>
+
+{% for quiz in quiz_list %}
+<h4> {{ quiz.name }} </h4>
+
+<h5> Kategoria - {{ quiz.category }}</h5>
+<h5> Luoja - {{ quiz.creator_id }} </h5>
+{% endfor %}
+
+<a href="/"> <h4> Takaisin etusivulle </h4> </a>
+<a href="/logout"> <h4> Kirjaudu ulos </h4> </a>
