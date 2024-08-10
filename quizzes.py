@@ -5,8 +5,9 @@ from sqlalchemy.sql import text
 
 def create(name, category):
 	try:
-		sql = text("INSERT INTO quizzes (name, category) VALUES (:name,:category) RETURNING id")
-		result = db.session.execute(sql, {"name":name, "category":category}).fetchone()
+		creator_id = users.user_id()
+		sql = text("INSERT INTO quizzes (creator_id, name, category) VALUES (:creator_id,:name,:category) RETURNING id")
+		result = db.session.execute(sql, {"creator_id":creator_id, "name":name, "category":category}).fetchone()
 		db.session.commit()
 	except:
 		return False
