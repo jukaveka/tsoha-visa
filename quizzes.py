@@ -16,20 +16,26 @@ def create(name, category):
 
 def add_question(quiz_id, question, choices, answer):
 	try:
-		sql = text("INSERT INTO questions (quiz_id, question) VALUES (:quiz_id, :question)")
-		db.session.execute(sql, {"quiz_id":quiz_id, "question":question})
+		sql = text("INSERT INTO questions (quiz_id, question) VALUES (:quiz_id, :question) RETURNING id")
+		result = db.session.execute(sql, {"quiz_id":quiz_id, "question":question}).fetchone()
 		db.session.commit()
-		
-		#for choice in choices:
-		#	sql = text("INSERT INTO choices (question_id, choice, is_correct) VALUES (:question_id, :choice, :is_correct))")
-		#	db.session.execute(sql, {"question_id":question_id, "choice":choice, "is_correct":answer})
-		#	db.session.commit()
+
+		question_id = result[0]
+
+		for choice in choices:
+			is_correct = False
+			if choice == answer:
+				is_correct = True
+			
+			print(choice, answer, is_correct)
+
+			sql = text("INSERT INTO choices (question_id, choice, is_correct) VALUES (:question_id, :choice, :is_correct)")
+			db.session.execute(sql, {"question_id":question_id, "choice":choice, "is_correct":is_correct})
+			db.session.commit()
 
 		sql = text("SELECT COUNT(*) FROM questions WHERE quiz_id=:quiz_id")
 		count = db.session.execute(sql, {"quiz_id":quiz_id}).fetchone()
 		db.session.commit()
-
-		print(count)
 
 	except:
 		return False

@@ -37,11 +37,12 @@ def create_question():
 		choice3 = request.form["option3"]
 		choice4 = request.form["option4"]
 		choices = [choice1, choice2, choice3, choice4]
-		answer = request.form["options"]
+		correct_option = request.form["options"]
+		answer = request.form[correct_option]
 
 		count = quizzes.add_question(quiz_id, question, choices, answer)
 
-		if count == 5:
+		if count == 5: # Currently forcing 5 questions per quiz
 			return redirect("/")
 		else:
 			return render_template("question.html", quiz_id=quiz_id)
