@@ -11,12 +11,17 @@ def browse():
 	quiz_list = quizzes.get_quiz_list()
 	return render_template("play.html", quiz_list=quiz_list)
 
-@app.route("/play/", methods=["GET"])
+@app.route("/play/", methods=["GET", "POST"])
 def play():
-	quiz = quizzes.get_quiz(request.args.get("quiz_id"))
-	questions = quizzes.get_questions(quiz.id)
+	if request.method == "GET":
+		game = quizzes.create_game(request.args.get("quiz_id"), users.user_id())
+		quiz = quizzes.get_quiz(request.args.get("quiz_id"))
+		question = quizzes.get_question(quiz.id, 1)
 	
-	return render_template("quiz.html", quiz=quiz, questions=questions)
+		return render_template("quiz.html", quiz=quiz, question=question, game=game)
+	
+	if request.method == "POST":
+		return redirect("/") # Tästä jatkuu
 
 @app.route("/new")
 def new():
@@ -26,9 +31,9 @@ def new():
 def create():
 	name = request.form["name"]
 	category = request.form["category"]
-	quiz_id = quizzes.create(name, category)
-	if quiz_id != False:
-		return render_template("question.html", quiz_id=quiz_id)
+	quiz = quizzes.create_quiz(name, category)
+	if quiz.id != False:
+		return render_template("question.html", quiz_id=quiz.id)
 	else:
 		return render_template("error.html", message="Visan luonti epäonnistui.")
 
@@ -37,19 +42,19 @@ def create_question():
 	if request.method == "GET":
 		return render_template("question.html")
 	if request.method == "POST":
-		quiz_id = request.form["quizId"]
+		quiz_id = request.form["quiz_id"]
 		question = request.form["question"]
-		choice1 = request.form["option1"]
-		choice2 = request.form["option2"]
-		choice3 = request.form["option3"]
-		choice4 = request.form["option4"]
+		choice1 = request.form["choice1"]
+		choice2 = request.form["choice2"]
+		choice3 = request.form["choice3"]
+		choice4 = request.form["choice4"]
 		choices = [choice1, choice2, choice3, choice4]
-		correct_option = request.form["options"]
-		answer = request.form[correct_option]
+		correct_choice = request.form["correct_choice"]
+		answer = request.form[correct_choice]
 
 		count = quizzes.add_question(quiz_id, question, choices, answer)
 
-		if count == 5: # Currently forcing 5 questions per quiz
+		if count >= 5: # Currently forcing 5 questions per quiz
 			return redirect("/")
 		else:
 			return render_template("question.html", quiz_id=quiz_id)

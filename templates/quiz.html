@@ -1,26 +1,26 @@
 <p> Visa - {{ quiz.name }} </p>
 <p> Kategoria - {{ quiz.category }} </p>
 <p> Luoja - {{ quiz.nickname }} </p>
-<hr>
-{% for question in questions %}
+<form action="/play/" method="post">
 <p>{{ question.question }} </p>
 <p>
-    <input type="radio" name="choices" id={{question.id}} value={{question.choice_1}}> 1. {{ question.choice_1 }}
+    <input type="radio" name="choice" id={{question.choice_1_id}} value={{question.choice_1}}> 1. {{ question.choice_1 }}
 </p>
 <p>
-    <input type="radio" name="choices" id={{question.id}} value={{question.choice_2}}> 2. {{ question.choice_2 }}
+    <input type="radio" name="choice" id={{question.choice_2_id}} value={{question.choice_2}}> 2. {{ question.choice_2 }}
 </p>
 <p>
-    <input type="radio" name="choices" id={{question.id}} value={{question.choice_3}}> 3. {{ question.choice_3 }}
+    <input type="radio" name="choice" id={{question.choice_3_id}} value={{question.choice_3}}> 3. {{ question.choice_3 }}
 </p>
 <p>
-    <input type="radio" name="choices" id={{question.id}} value={{question.choice_4}}> 4. {{ question.choice_4 }}
+    <input type="radio" name="choice" id={{question.choice_4_id}} value={{question.choice_4}}> 4. {{ question.choice_4 }}
 </p>
-<hr>
-{% endfor %}
+<input type="hidden" name="quiz_id" value= {{quiz.id}}>
+<input type="hidden" name="question_id" value={{question.id}}>
 <p>
     <input type="submit" value="Lähetä vastauksesi">
 </p>
+</form>
 <p>
     <a href="/">
         Takaisin selaamiseen

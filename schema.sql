@@ -4,7 +4,7 @@ CREATE TYPE quiz_category AS ENUM ('Sports', 'TV and Movies', 'Music', 'Video ga
 
 CREATE TABLE quizzes (id SERIAL PRIMARY KEY, creator_id INTEGER REFERENCES users, name TEXT, category quiz_category);
 
-CREATE TABLE questions (id SERIAL PRIMARY KEY, quiz_id INTEGER REFERENCES quizzes, question TEXT);
+CREATE TABLE questions (id SERIAL PRIMARY KEY, quiz_id INTEGER REFERENCES quizzes, question_number INTEGER, question TEXT);
 
 CREATE TABLE choices (id SERIAL PRIMARY KEY, question_id INTEGER REFERENCES questions, choice_number INTEGER, choice TEXT, is_correct BOOLEAN);
 
@@ -23,11 +23,11 @@ INSERT INTO quizzes (creator_id, name, category) VALUES (1, 'Snookervisa', 'Spor
 INSERT INTO quizzes (creator_id, name, category) VALUES (2, 'Videopelivisa', 'Video games'); 
 INSERT INTO quizzes (creator_id, name, category) VALUES (1, 'NHL-visa', 'Sports');
 
-INSERT INTO questions (quiz_id, question) VALUES (1, 'Kuka voitti ensimmäisen Snookerin maailmanmestaruuden vuonna 1927?');
-INSERT INTO questions (quiz_id, question) VALUES (1, 'Ensimmäinen Ison-Britannian ulkopuolinen voittaja, Horace Lindrum, nähtiin vuonna 1952. Mistä maasta hän on kotoisin?');
-INSERT INTO questions (quiz_id, question) VALUES (1, 'Maksimibreikki, eli 147 pistettä putkeen, nähtiin ensimmäistä kertaa televisiossa vuonna 1982. Ketä suoritti kyseisen breikin?');
-INSERT INTO questions (quiz_id, question) VALUES (1, 'Stephen Hendry dominoi lajia 1990-luvulla, voittaen 7 mestaruutta vuosikymmenen aikana. Mutta kuka pelaaja hävisi finaalissa ensimmäiset viisi vuotta putkeen?');
-INSERT INTO questions (quiz_id, question) VALUES (1, 'Ronnie OSullivan on tehnyt kaikkien aikojen nopeimman maksimibreikin vuonna 1997. Missä ajassa breikki tehtiin?');
+INSERT INTO questions (quiz_id, question_number, question) VALUES (1, 1, 'Kuka voitti ensimmäisen Snookerin maailmanmestaruuden vuonna 1927?');
+INSERT INTO questions (quiz_id, question_number, question) VALUES (1, 2, 'Ensimmäinen Ison-Britannian ulkopuolinen voittaja, Horace Lindrum, nähtiin vuonna 1952. Mistä maasta hän on kotoisin?');
+INSERT INTO questions (quiz_id, question_number, question) VALUES (1, 3, 'Maksimibreikki, eli 147 pistettä putkeen, nähtiin ensimmäistä kertaa televisiossa vuonna 1982. Ketä suoritti kyseisen breikin?');
+INSERT INTO questions (quiz_id, question_number, question) VALUES (1, 4, 'Stephen Hendry dominoi lajia 1990-luvulla, voittaen 7 mestaruutta vuosikymmenen aikana. Mutta kuka pelaaja hävisi finaalissa ensimmäiset viisi vuotta putkeen?');
+INSERT INTO questions (quiz_id, question_number, question) VALUES (1, 5, 'Ronnie OSullivan on tehnyt kaikkien aikojen nopeimman maksimibreikin vuonna 1997. Missä ajassa breikki tehtiin?');
 
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (1, 1, 'Tom Dennis', False);
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (1, 2, 'Fred Lawrence', False);
@@ -50,11 +50,11 @@ INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (5, 
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (5, 3, '3.58', False);
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (5, 4, '6.25', False);
 
-INSERT INTO questions (quiz_id, question) VALUES (2, 'Mikä on ensimmäinen videopeli, joka on tuonut ne laajempaan tietoisuuteen?'); 
-INSERT INTO questions (quiz_id, question) VALUES (2, 'Super Mario Bros. -pelin nähdään pelastaneen peliteollisuuden, mutta mikä peli oli suurin yksittäinen syy vuoden 1983 videopeliteollisuuden romahtamisessa?'); 
-INSERT INTO questions (quiz_id, question) VALUES (2, 'Nykyään huippusuosittu Counter-Strike oli alunperin toisen pelin pohjalle rakennettu modi. Mikä peli oli kyseessä?'); 
-INSERT INTO questions (quiz_id, question) VALUES (2, 'Mikä oli suomalaisen pelitalo Remedyn ensimmäinen julkaisu?'); 
-INSERT INTO questions (quiz_id, question) VALUES (2, 'Mikä videopelisarja yhdistelee Nintendon ja muiden pelitalojen suosituimpia hahmoja samaan tappelupeliin?');
+INSERT INTO questions (quiz_id, question_number, question) VALUES (2, 1, 'Mikä on ensimmäinen videopeli, joka on tuonut ne laajempaan tietoisuuteen?'); 
+INSERT INTO questions (quiz_id, question_number, question) VALUES (2, 2, 'Super Mario Bros. -pelin nähdään pelastaneen peliteollisuuden, mutta mikä peli oli suurin yksittäinen syy vuoden 1983 videopeliteollisuuden romahtamisessa?'); 
+INSERT INTO questions (quiz_id, question_number, question) VALUES (2, 3, 'Nykyään huippusuosittu Counter-Strike oli alunperin toisen pelin pohjalle rakennettu modi. Mikä peli oli kyseessä?'); 
+INSERT INTO questions (quiz_id, question_number, question) VALUES (2, 4, 'Mikä oli suomalaisen pelitalo Remedyn ensimmäinen julkaisu?'); 
+INSERT INTO questions (quiz_id, question_number, question) VALUES (2, 5, 'Mikä videopelisarja yhdistelee Nintendon ja muiden pelitalojen suosituimpia hahmoja samaan tappelupeliin?');
 
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (6, 1, 'Space Invader', False);
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (6, 2, 'Tetris', False);
@@ -77,11 +77,11 @@ INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (10,
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (10, 3, 'Mario Kart', False);
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (10, 4, 'Tekken', False);
 
-INSERT INTO questions (quiz_id, question) VALUES (3, 'Kuinka monta joukkuetta oli liigan perustamiskaudella mukana?'); 
-INSERT INTO questions (quiz_id, question) VALUES (3, 'Kuka oli ensimmäinen pelaaja, joka ylitti 100 pisteen rajan kaudessa?'); 
-INSERT INTO questions (quiz_id, question) VALUES (3, 'Wayne Gretzky johtaa kaikkien aikojen pistepörssiä, mutta kuka on listalla toisena?'); 
-INSERT INTO questions (quiz_id, question) VALUES (3, 'Kuka pelaaja kieltäytyi pelaamasta hänet varanneessa joukkueessa, ja vaati siirtoa, joka yhdistyy vielä tänäkin päivänä tapahtuviin siirtoihin?'); 
-INSERT INTO questions (quiz_id, question) VALUES (3, 'Kuka oli ensimmäinen eurooppalainen, joka voitti kapteenina Stanley Cupin?');
+INSERT INTO questions (quiz_id, question_number, question) VALUES (3, 1, 'Kuinka monta joukkuetta oli liigan perustamiskaudella mukana?'); 
+INSERT INTO questions (quiz_id, question_number, question) VALUES (3, 2, 'Kuka oli ensimmäinen pelaaja, joka ylitti 100 pisteen rajan kaudessa?'); 
+INSERT INTO questions (quiz_id, question_number, question) VALUES (3, 3, 'Wayne Gretzky johtaa kaikkien aikojen pistepörssiä, mutta kuka on listalla toisena?'); 
+INSERT INTO questions (quiz_id, question_number, question) VALUES (3, 4, 'Kuka pelaaja kieltäytyi pelaamasta hänet varanneessa joukkueessa, ja vaati siirtoa, joka yhdistyy vielä tänäkin päivänä tapahtuviin siirtoihin?'); 
+INSERT INTO questions (quiz_id, question_number, question) VALUES (3, 5, 'Kuka oli ensimmäinen eurooppalainen, joka voitti kapteenina Stanley Cupin?');
 
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (11, 1, '6', False);
 INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (11, 2, '5', False);
