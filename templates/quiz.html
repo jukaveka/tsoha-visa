@@ -1,0 +1,17 @@
+<h2> Visa - {{ quiz.name }} </h2>
+<h3> Kategoria - {{ quiz.category }}</h3>
+<h3> Luoja - {{ quiz.nickname }} </h3>
+<hr>
+{% for question in questions %}
+<h4> {{ question.question }} </h4>
+<hr>
+{% endfor %}
+<a href="/">
+    <h4> Takaisin selaamiseen </h4>
+</a>
+<a href="/">
+    <h4> Takaisin etusivulle </h4>
+</a>
+<a href="/logout">
+    <h4> Kirjaudu ulos </h4>
+</a>

@@ -1,17 +1,22 @@
 from app import app
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request
 import users, quizzes
 
 @app.route("/")
 def index():
 	return(render_template("index.html"))
 
-@app.route("/browse")
+@app.route("/play")
 def browse():
-	quiz_list = quizzes.quiz_list()
-	for quiz in quiz_list:
-		print(quiz)
+	quiz_list = quizzes.get_quiz_list()
 	return render_template("play.html", quiz_list=quiz_list)
+
+@app.route("/play/", methods=["GET"])
+def play():
+	quiz = quizzes.get_quiz(request.args.get("quiz_id"))
+	questions = quizzes.get_questions(quiz.id)
+	
+	return render_template("quiz.html", quiz=quiz, questions=questions)
 
 @app.route("/new")
 def new():
@@ -48,11 +53,6 @@ def create_question():
 			return redirect("/")
 		else:
 			return render_template("question.html", quiz_id=quiz_id)
-
-"""
-@app.route("/quizzes/<int:id>")
-def quiz():
-"""
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

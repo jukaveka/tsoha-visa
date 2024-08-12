@@ -3,15 +3,51 @@ from flask import session
 import users
 from sqlalchemy.sql import text
 
-def quiz_list():
+def get_quiz_list():
 	try:
-		sql = text("SELECT * FROM quizzes ORDER BY id DESC")
+		sql = text("SELECT q.id, u.nickname, q.name, q.category FROM quizzes q, users u WHERE u.id = q.creator_id ORDER BY q.id DESC;")
 		quizzes = db.session.execute(sql).fetchall()
 		db.session.commit()
 	except:
 		return False
 
 	return quizzes
+
+def get_quiz(quiz_id):
+	try:
+		sql = text("SELECT q.id, u.nickname, q.name, q.category FROM quizzes q, users u WHERE u.id = q.creator_id AND q.id = :quiz_id")
+		quiz = db.session.execute(sql, {"quiz_id":quiz_id}).fetchone()
+		db.session.commit()
+	except:
+		return False
+	
+	return quiz
+
+def get_questions(quiz_id):
+	try:
+		sql = text("SELECT id, question FROM questions WHERE quiz_id = :quiz_id")
+		questions = db.session.execute(sql, {"quiz_id":quiz_id}).fetchall()
+		db.session.commit()
+	except:
+		return False
+	
+	return questions
+
+
+def get_choices(question_id):
+	try:
+		sql = text("SELECT * FROM choices WHERE question_id = :question_id")
+		choices = db.session.execute(sql, {"question_id":question_id}).fetchall()
+		db.session.commit()
+
+		for choice in choices:
+			print(choice)
+			print(choice.id, choice.question_id, choice.choice, choice.is_correct)
+
+	except:
+		return False
+	
+	return choices
 
 def create(name, category):
 	try:

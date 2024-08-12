@@ -1,11 +1,17 @@
 <title> Visailusivusto </title>
 <h1> Visailusivusto </h1>
 {% if session.user_id %}
-<a href="/browse"> <h3> Pelattavat visat </h3> </a>
+<a href="/play">
+    <h3> Pelattavat visat </h3>
+</a>
 <br>
-<a href="/new"> <h3> Luo oma visa </h3> </a>
+<a href="/new">
+    <h3> Luo oma visa </h3>
+</a>
 <br>
-<a href="/profile/"> <h3> Profiili </h3> </a>
+<a href="/profile/">
+    <h3> Profiili </h3>
+</a>
 <br>
 <a href="/logout"> Kirjaudu ulos </a>
 {% else %}
