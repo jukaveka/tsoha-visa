@@ -25,9 +25,34 @@ def get_quiz(quiz_id):
 
 def get_questions(quiz_id):
 	try:
-		sql = text("SELECT id, question FROM questions WHERE quiz_id = :quiz_id")
+		sql = text(
+		"SELECT "
+		    "q.id, " 
+		    "q.question, "
+		    "c1.id AS choice_1_id, "
+		    "c1.choice AS choice_1, "
+		    "c2.id AS choice_2_id, "
+		    "c2.choice AS choice_2, "
+		    "c3.id AS choice_3_id, "
+		    "c3.choice AS choice_3, "
+		    "c4.id AS choice_4_id, "
+		    "c4.choice AS choice_4 "
+		"FROM " 
+		    "questions q, choices c1, choices c2, choices c3, choices c4, choices cc "
+		"WHERE "
+		    "q.id = c1.question_id AND c1.choice_number = 1 "
+		    "AND q.id = c2.question_id AND c2.choice_number = 2 "
+		    "AND q.id = c3.question_id AND c3.choice_number = 3 "
+		    "AND q.id = c4.question_id AND c4.choice_number = 4 "
+		    "AND q.id = cc.question_id AND cc.is_correct = True "
+		    "AND q.quiz_id = :quiz_id;"
+		)
 		questions = db.session.execute(sql, {"quiz_id":quiz_id}).fetchall()
 		db.session.commit()
+
+		for question in questions:
+			print(question.id, question.question, question.choice_1, question.choice_2, question.choice_3, question.choice_4)
+
 	except:
 		return False
 	
@@ -67,17 +92,18 @@ def add_question(quiz_id, question, choices, answer):
 		db.session.commit()
 
 		question_id = result[0]
+		choice_number = 1
 
 		for choice in choices:
 			is_correct = False
 			if choice == answer:
 				is_correct = True
-			
-			print(choice, answer, is_correct)
 
-			sql = text("INSERT INTO choices (question_id, choice, is_correct) VALUES (:question_id, :choice, :is_correct)")
-			db.session.execute(sql, {"question_id":question_id, "choice":choice, "is_correct":is_correct})
+			sql = text("INSERT INTO choices (question_id, choice_number, choice, is_correct) VALUES (:question_id, :choice_number, :choice, :is_correct)")
+			db.session.execute(sql, {"question_id":question_id, "choice_number":choice_number, "choice":choice, "is_correct":is_correct})
 			db.session.commit()
+
+			choice_number += 1
 
 		sql = text("SELECT COUNT(*) FROM questions WHERE quiz_id=:quiz_id")
 		count = db.session.execute(sql, {"quiz_id":quiz_id}).fetchone()

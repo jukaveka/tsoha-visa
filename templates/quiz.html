@@ -1,17 +1,38 @@
-<h2> Visa - {{ quiz.name }} </h2>
-<h3> Kategoria - {{ quiz.category }}</h3>
-<h3> Luoja - {{ quiz.nickname }} </h3>
+<p> Visa - {{ quiz.name }} </p>
+<p> Kategoria - {{ quiz.category }} </p>
+<p> Luoja - {{ quiz.nickname }} </p>
 <hr>
 {% for question in questions %}
-<h4> {{ question.question }} </h4>
+<p>{{ question.question }} </p>
+<p>
+    <input type="radio" name="choices" id={{question.id}} value={{question.choice_1}}> 1. {{ question.choice_1 }}
+</p>
+<p>
+    <input type="radio" name="choices" id={{question.id}} value={{question.choice_2}}> 2. {{ question.choice_2 }}
+</p>
+<p>
+    <input type="radio" name="choices" id={{question.id}} value={{question.choice_3}}> 3. {{ question.choice_3 }}
+</p>
+<p>
+    <input type="radio" name="choices" id={{question.id}} value={{question.choice_4}}> 4. {{ question.choice_4 }}
+</p>
 <hr>
 {% endfor %}
-<a href="/">
-    <h4> Takaisin selaamiseen </h4>
-</a>
-<a href="/">
-    <h4> Takaisin etusivulle </h4>
-</a>
-<a href="/logout">
-    <h4> Kirjaudu ulos </h4>
-</a>
+<p>
+    <input type="submit" value="Lähetä vastauksesi">
+</p>
+<p>
+    <a href="/">
+        Takaisin selaamiseen
+    </a>
+</p>
+<p>
+    <a href="/">
+        Takaisin etusivulle
+    </a>
+</p>
+<p>
+    <a href="/logout">
+        Kirjaudu ulos
+    </a>
+</p>
