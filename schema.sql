@@ -8,7 +8,9 @@ CREATE TABLE questions (id SERIAL PRIMARY KEY, quiz_id INTEGER REFERENCES quizze
 
 CREATE TABLE choices (id SERIAL PRIMARY KEY, question_id INTEGER REFERENCES questions, choice_number INTEGER, choice TEXT, is_correct BOOLEAN);
 
-CREATE TABLE answers (ID SERIAL PRIMARY KEY, quiz_id INTEGER REFERENCES quizzes, question_id INTEGER REFERENCES questions, choice_id INTEGER REFERENCES choices, is_correct BOOLEAN);
+CREATE TABLE games (id SERIAL PRIMARY KEY, user_id INTEGER REFERENCES users, quiz_id INTEGER REFERENCES quizzes);
+
+CREATE TABLE answers (id SERIAL PRIMARY KEY, game_id INTEGER REFERENCES games, question_id INTEGER REFERENCES questions, choice_id INTEGER REFERENCES choices, is_correct BOOLEAN);
 
 INSERT INTO users (nickname, password) VALUES ('Juhani', 'scrypt:32768:8:1$euuGzsLJhflrI1Kh$e6897de0f857a2231808853c1
 1027302dd3e8e366da88abcbe3106dcf39cf2d68a7f05236b4aa07f43572131e21fe95a4a072957e
