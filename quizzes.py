@@ -29,8 +29,7 @@ def get_quiz(quiz_id):
 
 def get_question(quiz_id, question_number):
 
-	try:
-		sql = text(
+	sql = text(
 		"SELECT "
 		    "q.id, " 
 		    "q.question, "
@@ -52,13 +51,11 @@ def get_question(quiz_id, question_number):
 		    "AND q.id = cc.question_id AND cc.is_correct = True "
 		    "AND q.quiz_id = :quiz_id "
 			"AND q.question_number = :question_number"
-		)
-		result = db.session.execute(sql, {"quiz_id":quiz_id, "question_number":question_number})
-		question = result.fetchone()
-		db.session.commit()
-	except:
-		return False
-	
+	)
+	result = db.session.execute(sql, {"quiz_id":quiz_id, "question_number":question_number})
+	question = result.fetchone()
+	db.session.commit()
+
 	return question
 
 def create_game(quiz_id, user_id):
@@ -71,6 +68,8 @@ def create_game(quiz_id, user_id):
 	except:
 		return False
 	
+	session["game"] = game.id
+
 	return game
 
 def create_quiz(name, category):
@@ -122,15 +121,41 @@ def add_choices(question_id, choices, answer):
 
 	return True
 
-def get_question_count(quiz_id):
+def add_answer(game_id, question_id, choice_id):
+
+	is_correct = validate_answer(question_id, choice_id)
 
 	try:
-		sql = text("SELECT COUNT(*) AS question_count FROM questions WHERE quiz_id=:quiz_id")
-		result = db.session.execute(sql, {"quiz_id":quiz_id})
-		question = result.fetchone()
-		print(question.question_count)
+		sql = text("INSERT INTO answers (game_id, question_id, choice_id, is_correct) VALUES (:game_id, :question_id, :choice_id, :is_correct)")
+		db.session.execute(sql, {"game_id":game_id,"question_id":question_id, "choice_id":choice_id, "is_correct":is_correct})
 		db.session.commit()
 	except:
 		return False
+
+	return True
+
+def validate_answer(question_id, id):
 	
+	sql = text("SELECT is_correct FROM choices WHERE question_id = :question_id AND id = :id")
+	result = db.session.execute(sql, {"question_id":question_id, "id":id})
+	choice = result.fetchone()
+	
+	return choice.is_correct
+
+def get_question_count(quiz_id):
+
+	sql = text("SELECT COUNT(*) AS question_count FROM questions WHERE quiz_id=:quiz_id")
+	result = db.session.execute(sql, {"quiz_id":quiz_id})
+	question = result.fetchone()
+	db.session.commit()
+
 	return question.question_count
+
+def get_answer_count(game_id):
+
+	sql = text("SELECT COUNT(*) AS answer_count FROM answers WHERE game_id = :game_id")
+	result = db.session.execute(sql, {"game_id":game_id})
+	answers = result.fetchone()
+	db.session.commit()
+
+	return answers.answer_count

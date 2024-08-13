@@ -1,34 +1,55 @@
 from app import app
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, session
 import users, quizzes
 
 @app.route("/")
 def index():
+	
 	return(render_template("index.html"))
 
 @app.route("/play")
 def browse():
+	
+	session["game"] = 0
 	quiz_list = quizzes.get_quiz_list()
 	return render_template("play.html", quiz_list=quiz_list)
 
 @app.route("/play/", methods=["GET", "POST"])
 def play():
+
 	if request.method == "GET":
-		game = quizzes.create_game(request.args.get("quiz_id"), users.user_id())
+		if session.get("game",0) == 0:
+			quizzes.create_game(request.args.get("quiz_id"), users.user_id())
+		
 		quiz = quizzes.get_quiz(request.args.get("quiz_id"))
-		question = quizzes.get_question(quiz.id, 1)
+		question = quizzes.get_question(quiz.id, quizzes.get_answer_count(session.get("game")) + 1)
 	
-		return render_template("quiz.html", quiz=quiz, question=question, game=game)
+		return render_template("quiz.html", quiz=quiz, question=question)
 	
 	if request.method == "POST":
-		return redirect("/") # Tästä jatkuu
+		quiz_id = request.form["quiz_id"]
+		question_id= request.form["question_id"]
+		choice_id = request.form["choice"]
+
+		if quizzes.add_answer(session.get("game"), question_id, choice_id):
+			if quizzes.get_answer_count(session.get("game")) >= 5:
+				return redirect("/")
+			else:
+				quiz = quizzes.get_quiz(quiz_id)
+				question = quizzes.get_question(quiz.id, quizzes.get_answer_count(session.get("game")) + 1)
+
+				return render_template("quiz.html", quiz=quiz, question=question)
+		else:
+			return render_template("error.html", message="Vastauksen lisäämisessä tapahtui virhe")
 
 @app.route("/new")
 def new():
+	
 	return(render_template("new.html"))
 
 @app.route("/create", methods=["POST"])
 def create():
+	
 	name = request.form["name"]
 	category = request.form["category"]
 	quiz = quizzes.create_quiz(name, category)
@@ -39,6 +60,7 @@ def create():
 
 @app.route("/create/question", methods=["GET", "POST"])
 def create_question():
+	
 	if request.method == "GET":
 		return render_template("question.html")
 	if request.method == "POST":
@@ -61,6 +83,7 @@ def create_question():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+	
 	if request.method == "GET":
 		return render_template("register.html")
 	if request.method == "POST":
@@ -76,6 +99,7 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+	
 	if request.method == "GET":
 		return render_template("login.html")
 	if request.method == "POST":
@@ -88,5 +112,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+	
 	users.logout()
+	
 	return redirect("/")
