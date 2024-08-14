@@ -33,7 +33,7 @@ def play():
 
 		if quizzes.add_answer(session.get("game"), question_id, choice_id):
 			if quizzes.get_answer_count(session.get("game")) >= 5:
-				return redirect("/")
+				return redirect("/result")
 			else:
 				quiz = quizzes.get_quiz(quiz_id)
 				question = quizzes.get_question(quiz.id, quizzes.get_answer_count(session.get("game")) + 1)
@@ -41,6 +41,14 @@ def play():
 				return render_template("quiz.html", quiz=quiz, question=question)
 		else:
 			return render_template("error.html", message="Vastauksen lisäämisessä tapahtui virhe")
+	
+@app.route("/result")
+def result():
+
+	results = quizzes.get_results(session.get("game"))
+	answers = quizzes.get_answers(session.get("game"))
+
+	return render_template("result.html", results=results, answers=answers)
 
 @app.route("/new")
 def new():

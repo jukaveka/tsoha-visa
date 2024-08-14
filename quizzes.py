@@ -58,6 +58,58 @@ def get_question(quiz_id, question_number):
 
 	return question
 
+def get_results(game_id):
+
+	sql = text(
+		"SELECT "
+		    "q.name AS quiz_name, "
+		    "COUNT(*) AS correct_answer_count, "
+		    "CAST((CAST(COUNT(*) AS DOUBLE PRECISION) / CAST(5 AS DOUBLE PRECISION)) * 100 AS INTEGER) AS correct_answer_percent "
+		"FROM "
+		    "games g, quizzes q, answers a "
+		"WHERE "
+		    "g.quiz_id = q.id "
+		    "AND g.id = a.game_id "
+		    "AND a.is_correct = True "
+		    "AND g.id = :game_id "
+		"GROUP BY "
+		    "q.name "
+	)
+	result = db.session.execute(sql, {"game_id":game_id})
+	results = result.fetchone()
+	db.session.commit()
+
+	return results
+
+def get_answers(game_id):
+	
+	sql = text(
+		"SELECT "
+		    "q.question, "
+		    "uc.choice AS user_answer, "
+		    "cc.choice AS correct_answer, "
+		    "CASE "
+		        "WHEN a.is_correct = True THEN 'oikein' "
+		        "ELSE 'väärin' "
+		    "END AS was_user_correct "
+		"FROM "
+		    "answers a "
+		"INNER JOIN questions AS q ON "
+		    "q.id = a.question_id "
+		"INNER JOIN choices AS uc ON "
+		    "uc.id = a.choice_id "
+		"INNER JOIN choices AS cc ON "
+		    "cc.question_id = q.id "
+		    "AND cc.is_correct = True "
+		"WHERE "
+		    "a.game_id = :game_id;"
+	)
+	result = db.session.execute(sql, {"game_id":game_id})
+	answers = result.fetchall()
+	db.session.commit()
+
+	return answers
+
 def create_game(quiz_id, user_id):
 
 	try:

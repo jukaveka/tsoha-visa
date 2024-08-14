@@ -1,0 +1,20 @@
+<p> {{ results.quiz_name }} tulokset </p>
+<p> Oikeat vastaukset - {{ results.correct_answer_count }} </p>
+<p> Vastasit oikein {{ results.correct_answer_percent }} % kysymyksistä </p>
+<hr>
+{% for answer in answers %}
+<p> Kysymys - {{ answer.question }} </p>
+<p> Vastauksesi - {{ answer.user_answer }} </p>
+<p> Oikea vastaus - {{ answer.correct_answer }} </p>
+<p> Vastauksesi oli {{ answer.was_user_correct }} </p>
+<hr>
+{% endfor %}
+<p>
+<a href="/"> Palaa etusivulle </a>
+</p>
+<p>
+<a href="/play"> Selaa visoja </a>
+</p>
+<p>
+<a href="/logout"> Kirjaudu ulos </a>
+</p>
