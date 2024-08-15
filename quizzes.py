@@ -62,6 +62,7 @@ def get_results(game_id):
 
 	sql = text(
 		"SELECT "
+			"q.id AS quiz_id, "
 		    "q.name AS quiz_name, "
 		    "COUNT(*) AS correct_answer_count, "
 		    "CAST((CAST(COUNT(*) AS DOUBLE PRECISION) / CAST(5 AS DOUBLE PRECISION)) * 100 AS INTEGER) AS correct_answer_percent "
@@ -73,6 +74,7 @@ def get_results(game_id):
 		    "AND a.is_correct = True "
 		    "AND g.id = :game_id "
 		"GROUP BY "
+			"q.id, "
 		    "q.name "
 	)
 	result = db.session.execute(sql, {"game_id":game_id})
@@ -184,6 +186,19 @@ def add_answer(game_id, question_id, choice_id):
 	except:
 		return False
 
+	return True
+
+def add_review(quiz_id, grade, comment):
+
+	print(users.user_id())
+
+	try:
+		sql = text("INSERT INTO reviews (quiz_id, user_id, grade, comment) VALUES (:quiz_id, :user_id, :grade, :comment)")
+		db.session.execute(sql, {"quiz_id":quiz_id, "user_id":users.user_id(), "grade":grade, "comment":comment})
+		db.session.commit()
+	except:
+		return False
+	
 	return True
 
 def validate_answer(question_id, id):

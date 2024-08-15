@@ -10,11 +10,21 @@
 <hr>
 {% endfor %}
 <p>
-<a href="/"> Palaa etusivulle </a>
+<form action="/review" method="post">
+    <p> Arvostele visa </p>
+    <input type="range" name="grade" min=1 max=5>
+    <p> Jätä kommentti visasta</p>
+    <textarea name="comment" rows=5 cols=50></textarea>
+    <input type="hidden" name="quiz_id" value={{results.quiz_id}}>
+    <p><input type="submit" value="Lähetä arvostelu"></p>
+</form>
 </p>
 <p>
-<a href="/play"> Selaa visoja </a>
+    <a href="/"> Palaa etusivulle </a>
 </p>
 <p>
-<a href="/logout"> Kirjaudu ulos </a>
+    <a href="/play"> Selaa visoja </a>
+</p>
+<p>
+    <a href="/logout"> Kirjaudu ulos </a>
 </p>

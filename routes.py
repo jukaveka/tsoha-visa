@@ -50,6 +50,21 @@ def result():
 
 	return render_template("result.html", results=results, answers=answers)
 
+
+@app.route("/review", methods=["POST"])
+def review():
+
+	quiz_id = request.form["quiz_id"]
+	grade = request.form["grade"]
+	comment = request.form["comment"]
+
+	print(quiz_id)
+
+	if quizzes.add_review(quiz_id, grade, comment):
+		return redirect("/")
+	else:
+		return render_template("error.html", message="Tapahtui virhe arvostelun jättämisessä")
+
 @app.route("/new")
 def new():
 	
