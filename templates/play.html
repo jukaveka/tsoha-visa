@@ -2,9 +2,11 @@
 <hr>
 {% for quiz in quiz_list %}
 <form action="/play/" method="get">
-    <h4> {{ quiz.name }} </h4>
-    <h5> Kategoria - {{ quiz.category }}</h5>
-    <h5> Luoja - {{ quiz.nickname }} </h5>
+    <p> {{ quiz.name }}</p>
+    <p> Kategoria - {{ quiz.category }}</p>
+    <p> Luoja - {{ quiz.nickname }}</p>
+    <p> Pelattu - {{ quiz.games_played }} kertaa</p>
+    <p> Arvostelut - {{ quiz.rating }} / 5 </p>
     <input type="hidden" name="quiz_id" value={{quiz.id}}>
     <input type="submit" value="Pelaa Visa">
 </form>

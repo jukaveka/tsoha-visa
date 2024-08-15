@@ -6,7 +6,30 @@ from sqlalchemy.sql import text
 def get_quiz_list():
 
 	try:
-		sql = text("SELECT q.id, u.nickname, q.name, q.category FROM quizzes q, users u WHERE u.id = q.creator_id ORDER BY q.id DESC;")
+		sql = text(
+			"SELECT "
+			    "q.id, "
+			    "u.nickname, "
+			    "q.name, "
+			    "q.category, "
+			    "COUNT(g.id) AS games_played, "
+			    "COALESCE(CAST(SUM(r.grade) AS DOUBLE PRECISION)/ COUNT(r.id), 0) AS rating "
+			"FROM "
+			    "quizzes q "
+			"INNER JOIN users u "
+			    "ON u.id = q.creator_id "
+			"LEFT JOIN games g "
+			    "ON g.quiz_id = q.id "
+			"LEFT JOIN reviews r "
+			    "ON r.quiz_id = q.id "
+			"GROUP BY "
+			    "q.id, "
+			    "u.nickname, "
+			    "q.name, "
+			    "q.category "
+			"ORDER BY "
+			    "q.id DESC; "
+		)
 		result = db.session.execute(sql)
 		quizzes = result.fetchall()
 		db.session.commit()

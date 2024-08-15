@@ -12,6 +12,9 @@ def browse():
 	
 	session["game"] = 0
 	quiz_list = quizzes.get_quiz_list()
+	if quiz_list == False:
+		return render_template("error.html", message="Visojen hakemisessa tapahtui virhe")
+	
 	return render_template("play.html", quiz_list=quiz_list)
 
 @app.route("/play/", methods=["GET", "POST"])
