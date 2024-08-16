@@ -1,0 +1,81 @@
+<p>
+    <h3> 
+        Käyttäjätiedot 
+    </h3>
+</p>
+<p> 
+    Tunnus 
+    <br>
+    {{ user.nickname }}
+</p>
+<hr>
+<p> <h3> Pelatut visat </h3></p>
+<p> 
+    Pelattuja visoja 
+    <br>
+    {{ games.played_quizzes }}
+</p>
+<p>
+    Suosikkikategoria
+    <br>
+    Coming soon or never
+</p>
+<p> 
+    Pelikerrat 
+    <br>
+    {{ games.played_games}}
+</p>
+<p> 
+    Vastaukset 
+    <br>
+    {{ games.all_answers}}
+</p>
+<p> 
+    Oikeat vastaukset 
+    <br>
+    {{ games.correct_answers}}
+</p>
+<p>
+    Vastausprosentti
+    <br>
+    {{ games.correct_answer_percent }}
+</p>
+<hr>
+<p> 
+    <h3>
+        Omat visat
+    </h3> 
+</p>
+<p> 
+    Luodut visat
+    <br>
+    {{ quizzes.created_quizzes }}
+</p>
+<p>
+    Suosikkikategoria
+    <br>
+    Coming soon or never
+</p>
+<p>
+    Pelikerrat
+    <br>
+    {{ quizzes.created_quizzes_played_games }}
+</p>
+<p>
+    Jätetyt arvostelut
+    <br>
+    {{ quizzes.reviews }}
+</p>
+<p>
+    Kaikkien visojen arvosana
+    <br>
+    {{ quizzes.rating }}
+</p>
+<hr>
+<p>
+    <a href="/"> Takaisin etusivulle </a>
+</p>
+<p>
+
+    <a href="/logout"> Kirjaudu ulos</a>
+</p>

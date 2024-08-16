@@ -213,8 +213,6 @@ def add_answer(game_id, question_id, choice_id):
 
 def add_review(quiz_id, grade, comment):
 
-	print(users.user_id())
-
 	try:
 		sql = text("INSERT INTO reviews (quiz_id, user_id, grade, comment) VALUES (:quiz_id, :user_id, :grade, :comment)")
 		db.session.execute(sql, {"quiz_id":quiz_id, "user_id":users.user_id(), "grade":grade, "comment":comment})

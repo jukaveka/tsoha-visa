@@ -107,6 +107,15 @@ def create_question():
 		else:
 			return render_template("question.html", quiz_id=quiz_id)
 
+@app.route("/profile")
+def profile():
+
+	user = users.get_user_information(users.user_id())
+	games = users.get_user_games(users.user_id())
+	quizzes = users.get_user_quizzes(users.user_id())
+
+	return render_template("profile.html", user=user, games=games, quizzes=quizzes)
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
 	
