@@ -1,0 +1,40 @@
+<p>
+	{{ quiz.name }}
+ </p>
+ <p>
+	Arvostelut
+ </p>
+<hr>
+{% for review in reviews %}
+<p>
+	Arvostelija
+	<br>
+	{{ review.reviewer }}
+</p>
+<p>
+	Arvosana
+	<br>
+	{{ review.grade }} / 5
+</p>
+<p>
+	Kommentti
+	<br>
+	{{ review.comment }}
+</p>
+<hr>
+{% endfor %}
+<p>
+	<a href="/play"> 
+		Takaisin visoihin 
+	</a>
+</p>
+<p>
+	<a href="/"> 
+		Takaisin etusivulle 
+	</a>
+</p>
+<p>
+	<a href="/logout"> 
+		Kirjaudu ulos
+	</a>
+</p>

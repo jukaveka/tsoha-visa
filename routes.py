@@ -44,6 +44,15 @@ def play():
 				return render_template("quiz.html", quiz=quiz, question=question)
 		else:
 			return render_template("error.html", message="Vastauksen lisäämisessä tapahtui virhe")
+		
+@app.route("/play/reviews/")
+def reviews():
+	
+	quiz_id = request.args.get("quiz_id")
+	quiz = quizzes.get_quiz(quiz_id)
+	reviews = quizzes.get_quiz_reviews(quiz_id)
+
+	return render_template("reviews.html", quiz=quiz, reviews=reviews)
 	
 @app.route("/result")
 def result():
@@ -52,7 +61,6 @@ def result():
 	answers = quizzes.get_answers(session.get("game"))
 
 	return render_template("result.html", results=results, answers=answers)
-
 
 @app.route("/review", methods=["POST"])
 def review():

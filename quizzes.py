@@ -50,6 +50,17 @@ def get_quiz(quiz_id):
 	
 	return quiz
 
+def get_quiz_reviews(quiz_id):
+
+	sql = text("SELECT u.nickname AS reviewer, r.grade, r.comment FROM reviews AS r, users AS u WHERE u.id = r.user_id AND r.quiz_id = :quiz_id")
+	result = db.session.execute(sql, {"quiz_id":quiz_id})
+	reviews = result.fetchall()
+
+	for review in reviews:
+		print(review.reviewer, review.grade, review.comment)
+
+	return reviews
+
 def get_question(quiz_id, question_number):
 
 	sql = text(
