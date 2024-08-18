@@ -31,5 +31,6 @@ Käynnistysohjeet
 	- psql < schema.sql
    	- On suositeltavaa alustaa erillinen tietokanta, jos yleisiä taulukkonimiä, kuten users, on käytössä omissa ennaltamääritellyissä tietokannoissa.
   	- Tässä tapauksessa käytä komentoa psql tsoha-visa < schema.sql
+  	- Käynnistä tietokanta erillisessä komentokehotteessa komennolla start-pg.sh
  - Aja seuraava komento käynnistääksesi virtuaaliympäristön testausta varten
 	- flask run
