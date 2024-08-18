@@ -16,7 +16,7 @@ Ulkoasu
 
 Ulkoasu on hyvin pelkistetty ja vaihtelee sivutasolla. Lopullinen, yhtenäistetty ulkoasu on suunnitteluvaiheessa. Alla liitettynä tämän hetken prototyyppi index-sivun ulkoasusta.
 
-![image](https://github.com/user-attachments/assets/1f558671-d6e2-4565-87bf-af30792ec49d)
+![image](https://github.com/user-attachments/assets/24c642be-d377-4f4e-be7c-85429d82d6f5)
 
 Käynnistysohjeet
 -
