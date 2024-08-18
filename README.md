@@ -1,40 +1,35 @@
-Projektin aiheena on luoda visailupohjainen sivusto, jossa käyttäjät voivat pelata muiden luomia visoja, sekä luoda omia visoja muiden pelattavaksi.
+Sovelluksen toiminnallisuudet
+-
 
-Ensin pitää luoda käyttäjä (nimimerkki, salasana), jonka jälkeen voi visoja pelata ja luoda.
+Sovelluksessa voi luoda omia visoja ja pelata valmiita esimerkkivisoja.
 
-Etusivu
-- Selaa visoja
-- Luo visa
-- Tilastot / High scoret
-- Kirjaudu ulos
+Visoissa on viisi kysymystä, ja jokaisella kysymyksellä on neljä vastausvaihtoehtoa. Yksi näistä vaihtoehdoista on oikein.
 
-Visan luonti
-- Nimi
-- Aihe-alue
-- 2-10 monivalintakysymystä
-- Vinkit (?)
+Visan pelaamisen jälkeen sen voi arvostella (arvosana 1-5) ja jättää kommentin visasta.
 
-Visalista
-- Listaus visoista ja niiden olennaisimmat tiedot
-	- Nimi
-	- Aihe-alue
-	- Luoja
-	- Pelikerrat
-	- Pisteytys (keskiarvo)
-	- Kommentit (linkki)
-- Mahdolliset tiedot jos aikaa jää
-	- Vaikeustaso
-	- Vinkit (0-3)
+Omia pelien ja luotujen visojen tilastoja voi tutkia omasta profiilista.
 
-Visan pelaaminen
-- Valitse oikea vastaus annetuista vaihtoehdoista (2-4)
-- Mahdollisesti 1-3 vinkkiä (jos niitä on tarjottu)
-- Lukitse vastaukset ja lähetä.
-- Tulokset 0-100% oikein
-	- Mahdollinen painotus pisteisiin (luoja määrittelee kysymykselle painoarvon, esim. helppo/keski/vaikea).
-- Mahdollisuus jättää kommentti visasta
-- Mahdollisuus arvostella visa
+Alkuperäisestä suunnitelmasta puuttuu alkuperäisin suunnitellut vaikeustasot ja vinkit. Tarkoituksena lisätä kuva-mahdollisuudet vähintään visoille.
 
-High Scores
-- Parhaiten arvostellut visat (top 5)
-- Käyttäjäkohtaiset pistelistaukset (top 5)
+Ulkoasu
+-
+
+Ulkoasu on hyvin pelkistetty ja vaihtelee sivutasolla. Lopullinen, yhtenäistetty ulkoasu on suunnitteluvaiheessa. Alla liitettynä tämän hetken prototyyppi index-sivun ulkoasusta.
+
+![image](https://github.com/user-attachments/assets/1f558671-d6e2-4565-87bf-af30792ec49d)
+
+Käynnistysohjeet
+-
+
+- Kloonaa repositorio koneellesi
+- Navigoi komentokehotteessa kloonaamasi repositorion kansioon
+- Suorita seuraavat komennot alustaaksesi virtuaaliympäristö ja vaadittavat ohjelmat
+	- python3 -m venv venv
+   	- source venv/bin/activate
+   	- pip install -r ./requirements.txt
+- Lataa tietokannan malli seuraavalla komennolla. Malli sisältää testidataa, jonka tarkoituksena on helpottaa pelaamisen ja ulkoasun arviointia ja testaamista.
+	- psql < schema.sql
+   	- On suositeltavaa alustaa erillinen tietokanta, jos yleisiä taulukkonimiä, kuten users, on käytössä omissa ennaltamääritellyissä tietokannoissa.
+  	- Tässä tapauksessa käytä komentoa psql tsoha-visa < schema.sql
+ - Aja seuraava komento käynnistääksesi virtuaaliympäristön testausta varten
+	- flask run
