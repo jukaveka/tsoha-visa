@@ -25,32 +25,6 @@
         <option value="Trivia">
     </datalist>
     </p>
-    <!--
-    <h4> Lisää 1. kysymys </h4>
-    <input type="text" name="question1">
-    <br>
-    <h5> Lisää vastausvaihtoehdot </h5>
-    <p> 1. vaihtoehto
-        <input type="text" name="option1_1">
-    </p>
-    <p> 2. vaihtoehto
-        <input type="text" name="option2_1">
-    </p>
-    <p> 3. vaihtoehto
-        <input type="text" name="option3_1">
-    </p>
-    <p> 4. vaihtoehto
-        <input type="text" name="option4_1">
-    </p>
-    <h5> Valitse oikea vastaus kysymykselle </h5>
-    <input list="options_1">
-    <datalist id="options_1">
-        <option value="1">
-        <option value="2">
-        <option value="3">
-        <option value="4">
-    </datalist>
-    <br><br>
-    -->
+    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
     <input type="submit" value="Seuraava">
 </form>

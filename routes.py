@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, request, session
+from flask import render_template, redirect, request, session, abort
 import users, quizzes
 
 @app.route("/")
@@ -34,26 +34,32 @@ def play():
 		return render_template("quiz.html", quiz=quiz, question=question)
 	
 	if request.method == "POST":
+
+		if users.check_csrf_token(request.form["csrf_token"]):
 		
-		quiz_id = request.form["quiz_id"]
-		question_id= request.form["question_id"]
-		choice_id = request.form["choice"]
+			quiz_id = request.form["quiz_id"]
+			question_id= request.form["question_id"]
+			choice_id = request.form["choice"]
 
-		if quizzes.add_answer(session.get("game"), question_id, choice_id):
-			
-			if quizzes.get_answer_count(session.get("game")) >= 5:
-				
-				return redirect("/result")
-			
+			if quizzes.add_answer(session.get("game"), question_id, choice_id):
+
+				if quizzes.get_answer_count(session.get("game")) >= 5:
+
+					return redirect("/result")
+
+				else:
+
+					quiz = quizzes.get_quiz(quiz_id)
+					question = quizzes.get_question(quiz.id, quizzes.get_answer_count(session.get("game")) + 1)
+
+					return render_template("quiz.html", quiz=quiz, question=question)
 			else:
-				
-				quiz = quizzes.get_quiz(quiz_id)
-				question = quizzes.get_question(quiz.id, quizzes.get_answer_count(session.get("game")) + 1)
 
-				return render_template("quiz.html", quiz=quiz, question=question)
+				return render_template("error.html", message="Vastauksen lisäämisessä tapahtui virhe")
+		
 		else:
-			
-			return render_template("error.html", message="Vastauksen lisäämisessä tapahtui virhe")
+
+			abort(403)
 		
 @app.route("/play/reviews/")
 def reviews():
@@ -75,19 +81,23 @@ def result():
 @app.route("/review", methods=["POST"])
 def review():
 
-	quiz_id = request.form["quiz_id"]
-	grade = request.form["grade"]
-	comment = request.form["comment"]
+	if users.check_csrf_token(request.form["csrf_token"]):
 
-	print(quiz_id)
+		quiz_id = request.form["quiz_id"]
+		grade = request.form["grade"]
+		comment = request.form["comment"]
 
-	if quizzes.add_review(quiz_id, grade, comment):
-		
-		return redirect("/")
-	
+		if quizzes.add_review(quiz_id, grade, comment):
+
+			return redirect("/")
+
+		else:
+
+			return render_template("error.html", message="Tapahtui virhe arvostelun jättämisessä")
+
 	else:
-		
-		return render_template("error.html", message="Tapahtui virhe arvostelun jättämisessä")
+
+		abort(403)
 
 @app.route("/new")
 def new():
@@ -96,18 +106,24 @@ def new():
 
 @app.route("/create", methods=["POST"])
 def create():
+
+	if users.check_csrf_token(request.form["csrf_token"]):
 	
-	name = request.form["name"]
-	category = request.form["category"]
-	quiz = quizzes.create_quiz(name, category)
-	
-	if quiz.id != False:
-		
-		return render_template("question.html", quiz_id=quiz.id)
+		name = request.form["name"]
+		category = request.form["category"]
+		quiz = quizzes.create_quiz(name, category)
+
+		if quiz.id != False:
+
+			return render_template("question.html", quiz_id=quiz.id)
+
+		else:
+
+			return render_template("error.html", message="Visan luonti epäonnistui.")
 	
 	else:
 		
-		return render_template("error.html", message="Visan luonti epäonnistui.")
+		abort(403)
 
 @app.route("/create/question", methods=["GET", "POST"])
 def create_question():
@@ -116,7 +132,7 @@ def create_question():
 		
 		return render_template("question.html")
 	
-	if request.method == "POST":
+	if request.method == "POST" and users.check_csrf_token(request.form["csrf_token"]):
 		
 		quiz_id = request.form["quiz_id"]
 		question = request.form["question"]
@@ -127,9 +143,8 @@ def create_question():
 		choices = [choice1, choice2, choice3, choice4]
 		correct_choice = request.form["correct_choice"]
 		answer = request.form[correct_choice]
-
 		count = quizzes.add_question(quiz_id, question, choices, answer)
-
+		
 		if count >= 5: # Currently forcing 5 questions per quiz
 			
 			return redirect("/")
@@ -137,6 +152,10 @@ def create_question():
 		else:
 			
 			return render_template("question.html", quiz_id=quiz_id)
+	
+	else:
+		
+		abort(403)
 
 @app.route("/profile")
 def profile():

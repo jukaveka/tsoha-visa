@@ -16,6 +16,7 @@
     <p> Jätä kommentti visasta</p>
     <textarea name="comment" rows=5 cols=50></textarea>
     <input type="hidden" name="quiz_id" value={{results.quiz_id}}>
+    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
     <p><input type="submit" value="Lähetä arvostelu"></p>
 </form>
 </p>

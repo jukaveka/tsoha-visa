@@ -8,10 +8,12 @@
     <p> Pelattu - {{ quiz.games_played }} kertaa </p>
     <p> Arvostelut - {{ quiz.rating }} / 5 </p>
     <input type="hidden" name="quiz_id" value={{quiz.id}}>
+    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
     <input type="submit" value="Pelaa Visa">
 </form>
 <form action="/play/reviews/" method="get">
     <input type="hidden" name="quiz_id" value={{quiz.id}}>
+    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
     <input type="submit" value="Katso arvostelut">
 </form>
 <hr>
