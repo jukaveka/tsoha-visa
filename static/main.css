@@ -1,0 +1,211 @@
+.body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+}
+
+.bar {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+}
+
+.header {
+    display: grid;
+    gap: 2%;
+    grid-template-columns: 1fr 1fr 8fr;
+    background-color: #201E1F;
+    align-content: center;
+    top: 0;
+    left: 0;
+    height: 100px;
+}
+
+.header #logo {
+    grid-column: 1;
+    height: 75px;
+}
+
+.header #app-name {
+    grid-column: 2;
+    color: white;
+    text-align: left;
+    align-content: center;
+    font-family:  Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    height: 75px;
+}
+
+.bottom {
+    display: grid;
+    gap: 2%;
+    grid-template-columns: 7fr 1fr 1fr 1fr;
+    grid-column-start: 2;
+    background-color: #201E1F;
+    align-content: center;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+}
+
+.bottom-item {
+    color: white;
+    text-align: center;
+    align-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 50px;
+}
+
+.bottom-item #contact {
+    grid-column: 4;
+}
+
+.bottom-item #source {
+    grid-column: 3;
+}
+
+.bottom-item #icons {
+    grid-column: 2;
+}
+
+.wrapper {
+    position: absolute;
+    width: 67%;
+    height: 67%;
+    top: 16%;
+    left: 16%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2%;
+}
+
+.section {
+    color: white;
+}
+
+.branding {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    gap: 5%;
+    align-content: center;
+    text-align: center;
+    font-size: 30px;
+}
+
+.branding #logo {
+    display: block;
+}
+
+.branding #app-name {
+    align-content: center;
+    text-align: left;
+    color: black;
+}
+
+.login {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 2%;
+    align-content: start;
+    text-align: right;
+}
+
+.login #icon {
+    grid-column: 2;
+    margin:auto;
+}
+
+.button {
+    margin: 4px 2px;
+    padding: 10%;
+    border-radius: 50px;
+    width: 75%;
+    text-align: center;
+    font-weight: bold;
+    display: block;
+    box-sizing: border-box;
+}
+
+.login #button {
+    grid-column-start: 3;
+    background-color: #45CB6A;
+}
+
+.register {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 2%;
+    align-content: start;
+    text-align: left;
+}
+
+.register #icon {
+    grid-column: 1;
+    margin: auto;
+}
+
+.register #button {
+    grid-column-start: 2;
+    background-color: #09B1EE;
+}
+
+a {
+    color: white;
+}
+
+a.login:link, a.login:visited {
+    background-color: #45CB6A;
+    padding: 10%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 50px;
+}
+
+a.login:hover, a.login:active {
+    background-color: #33B558;
+    padding: 10%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 50px;
+}
+
+a.register:link, a.register:visited {
+    background-color: #09B1EE;
+    padding: 10%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 50px;
+}
+
+a.register:hover, a.register:active {
+    background-color: #0796CA;
+    padding: 10%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 50px;
+}
+
+a.bottom {
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    text-align: center;
+}

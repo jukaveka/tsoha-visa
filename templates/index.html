@@ -1,21 +1,51 @@
-<title> Visailusivusto </title>
-<h1> Visailusivusto </h1>
-{% if session.user_id %}
-<a href="/play">
-    <h3> Pelattavat visat </h3>
-</a>
-<br>
-<a href="/new">
-    <h3> Luo oma visa </h3>
-</a>
-<br>
-<a href="/profile">
-    <h3> Profiili </h3>
-</a>
-<br>
-<a href="/logout"> Kirjaudu ulos </a>
-{% else %}
-<h3> Et ole kirjautunut sisään </h3>
-<p> Jos haluat pelata tai luoda visoja, sinun on ensin luotava tunnus tai kirjauttava sisään</p>
-<a href="/login"> Kirjaudu sisään </a> | <a href="/register"> Luo tunnus </a>
-{% endif %}
+<!DOCTYPE html>
+<link rel="stylesheet" href="static/main.css">
+<meta name="viewport" content="width=device-width, initial_scale=1">
+
+<head>
+    <title> Visailusivusto </title>
+</head>
+
+<body>
+    <div class="header bar">
+        <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+                alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=70px
+                width=70px style="float:right"> </div>
+        <div id="app-name"> Tsoha-visa </div>
+    </div>
+    <div class="wrapper">
+        <div class="section branding">
+            <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+                    alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=125px
+                    width=125px style="float:right"> </div>
+            <div id="app-name">
+                <h2>Tsoha-visa</h2>
+            </div>
+        </div>
+        <div class="section login">
+            <div id="icon"> <img src="{{url_for('static', filename='login.png')}}"
+                    alt="Vihreä ikoni, jossa on ympyrä ja ympyrän sisään menevä nuoli" width=75px height=75px
+                    style="float:center"> </div>
+            <a class="login" href="/login"> Kirjaudu sisään </a>
+        </div>
+        <div class="section register">
+            <div id="icon"> <img src="{{url_for('static', filename='register.png')}}"
+                    alt="Sininen ikoni, jossa on ihmisen ääriviivat ja plusmerkki hänen oikealla puolellaan" width=75px
+                    height=75px> </div>
+            <a class="register" href="/register"> Luo tunnus </a>
+        </div>
+    </div>
+    <div class="bottom bar">
+        <div class="bottom-item"></div>
+        <div class="bottom-item">
+            <div id="icons"> Käytetyt ikonit </div>
+        </div>
+        <div class="bottom-item">
+            <div id="source"> <a class="bottom" href="https://github.com/jukaveka/tsoha-visa"> Lähdekoodi </a> </div>
+        </div>
+        <div class="bottom-item">
+            <div id="contact"> <a class="bottom" href="mailto:jukaveka@ad.helsinki.fi"> Ota yhteyttä </a> </div>
+        </div>
+    </div>
+    </div>
+</body>
