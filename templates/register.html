@@ -1,25 +1,56 @@
-<form action="/register" method="post">
-    <p> 
-        <h3> Luo tunnus </h3>
-    </p>
-    <p>
-         Tunnus:
-    </p>
-    <p>
-        <input type="text" name="username">
-    </p>
-    <p>
-        Salasana:
-    </p>
-    <p> 
-        <input type="password" name="password1"> </p>
-    <p>
-        Anna salasana uudelleen: 
-    </p>
-    <p>
-        <input type="password" name="password2">
-    </p>
-    <p>
-        <input type="submit" value="Luo tunnus">
-    </p>
-</form>
+<!DOCTYPE html>
+<link rel="stylesheet" href="static/main.css">
+<meta name="viewport" content="width=device-width, initial_scale=1">
+
+<head>
+    <title> Visailusivusto </title>
+</head>
+
+<body>
+    <div class="header bar">
+        <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+                alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=70px
+                width=70px style="float:right"> </div>
+        <div id="app-name"> Tsoha-visa </div>
+    </div>
+    <div class="wrapper">
+        <div class="section branding">
+            <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+                    alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=125px
+                    width=125px style="float:right"> </div>
+            <div id="app-name">
+                <h2>Tsoha-visa</h2>
+            </div>
+        </div>
+        <div class="section user-form">
+            <div id="login-register">
+                <form action="/register" method="post">
+                    <p>Tunnus
+                    <input type="text" name="username"></p>
+                    <p>Salasana
+                    <input type="password" name="password1"></p>
+                    <p>Anna salasana uudelleen
+                    <input type="password" name="password2"></p>
+                    <br>
+                    <input class="register" type="submit" value="Luo tunnus">
+                </form>
+            </div>
+            <div id="login-register-button">
+                <p> Onko sinulla jo tunnus? </p>
+                <a class="register-login-link" href="/login"> Kirjaudu sisään </a>
+            </div>
+        </div>
+    </div>
+    <div class="bottom bar">
+        <div class="bottom-item"></div>
+        <div class="bottom-item">
+            <div id="icons"> Käytetyt ikonit </div>
+        </div>
+        <div class="bottom-item">
+            <div id="source"> <a class="bottom" href="https://github.com/jukaveka/tsoha-visa"> Lähdekoodi </a> </div>
+        </div>
+        <div class="bottom-item">
+            <div id="contact"> <a class="bottom" href="mailto:jukaveka@ad.helsinki.fi"> Ota yhteyttä </a> </div>
+        </div>
+    </div>
+</body>

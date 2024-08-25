@@ -74,6 +74,8 @@
     height: 67%;
     top: 16%;
     left: 16%;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -103,6 +105,35 @@
     align-content: center;
     text-align: left;
     color: black;
+}
+
+.user-form {
+    grid-column: span 3 / 4;
+    display: grid;
+    grid-template-columns: 1fr 300px 1fr;
+    grid-template-rows: 300px 100px;
+    align-content: start;
+    text-align: left;
+    font-weight: bold;
+    color: black;
+}
+
+.user-form #login-register {
+    grid-column: 2;
+}
+
+.user-form #login-register-button {
+    grid-row: 2;
+    grid-column: 2;
+    align-content: center;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .login {
@@ -156,6 +187,41 @@ a {
     color: white;
 }
 
+input.login, input.register {
+    padding: 5%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 50px;
+    border: none;
+}
+
+input.login[type=submit] {
+    background-color: #45CB6A;
+}
+
+input.login[type=submit]:hover, input.login[type=submit]:active {
+    background-color: #33B558;
+}
+
+input.register[type=submit] {
+    background-color: #09B1EE;
+}
+
+input.register[type=submit]:hover, input.register[type=submit]:active {
+    background-color: #0796CA;
+}
+
+
+a {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 a.login:link, a.login:visited {
     background-color: #45CB6A;
     padding: 10%;
@@ -180,28 +246,52 @@ a.login:hover, a.login:active {
     border-radius: 50px;
 }
 
-a.register:link, a.register:visited {
-    background-color: #09B1EE;
+a.register {
     padding: 10%;
     text-align: center;
     text-decoration: none;
-    font-size: 20px;
     font-weight: bold;
     display: inline-block;
     box-sizing: border-box;
     border-radius: 50px;
 }
 
+a.register:link, a.register:visited {
+    background-color: #09B1EE;
+    font-size: 20px;
+}
+
 a.register:hover, a.register:active {
     background-color: #0796CA;
-    padding: 10%;
+    font-size: 20px;
+}
+
+a.login-register-link, a.register-login-link {
+    width: 100%;
+    font-size: 16px;
+    padding: 5%;
     text-align: center;
     text-decoration: none;
-    font-size: 20px;
     font-weight: bold;
     display: inline-block;
     box-sizing: border-box;
     border-radius: 50px;
+}
+
+a.login-register-link:link, a.register-login:visited {
+    background-color: #09B1EE;
+}
+
+a.login-register-link:hover, a.register-login:active {
+    background-color: #0796CA;
+}
+
+a.register-login-link:link, a.register-login:visited {
+    background-color: #45CB6A;
+}
+
+a.register-login-link:hover, a.register-login:active {
+    background-color: #33B558;
 }
 
 a.bottom {
