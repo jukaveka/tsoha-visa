@@ -13,6 +13,26 @@
                 width=70px style="float:right"> </div>
         <div id="app-name"> Tsoha-visa </div>
     </div>
+    {% if session.user_id %}
+    <div class="wrapper">
+        <div class="section play">
+            <div id="icon"> <img src="{{url_for('static', filename='letter-a-red.png')}}" alt="Orange red icon with capital letter A in the middle" height=75px widht=75px></div>
+            <a class="play" href="/play"> Pelaa visoja </a>
+        </div>
+        <div class="section profile">
+            <div id="icon"> <img src="{{url_for('static', filename='letter-c-yellow.png')}}" alt="Deep yellow icon with capital letter C in the middle" height=75px widht=75px></div>
+            <a class="profile" href="/profile"> Profiili </a>
+        </div>
+        <div class="section create">
+            <div id="icon"> <img src="{{url_for('static', filename='letter-b-blue.png')}}" alt="Sky blue icon with capital letter B in the middle" height=75px widht=75px></div>
+            <a class="create" href="/new"> Luo visa </a>
+        </div>
+        <div class="section welcome">
+            <div id="icon"> <img src="{{url_for('static', filename='checkmark.png')}}" alt="Vibrant green icon with checkmark in the middle" height=75px widht=75px></div>
+            <a class="welcome" href="/"> Tervetuloa visailemaan! </a>
+        </div>
+    </div>
+    {% else %}
     <div class="wrapper">
         <div class="section branding">
             <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
@@ -35,6 +55,7 @@
             <a class="register" href="/register"> Luo tunnus </a>
         </div>
     </div>
+    {% endif %}
     <div class="bottom bar">
         <div class="bottom-item"></div>
         <div class="bottom-item">
