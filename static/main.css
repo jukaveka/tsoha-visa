@@ -12,7 +12,7 @@
 .header {
     display: grid;
     gap: 2%;
-    grid-template-columns: 1fr 1fr 8fr;
+    grid-template-columns: 1fr 1fr 6fr 2fr;
     background-color: #201E1F;
     align-content: center;
     top: 0;
@@ -34,6 +34,12 @@
     font-size: 24px;
     font-weight: bold;
     height: 75px;
+}
+
+.header #logout {
+    grid-column: 4;
+    text-align: center;
+    align-content: center;
 }
 
 .bottom {
@@ -68,17 +74,31 @@
     grid-column: 2;
 }
 
-.wrapper {
+.index-wrapper {
     position: absolute;
     width: 67%;
     height: 67%;
     top: 16%;
     left: 16%;
-    font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    font-size: 20px;
+    gap: 5%;
+}
+
+.quiz-wrapper {
+    position: absolute;
+    width: 67%;
+    height: 67%;
+    top: 16%;
+    left: 16%;
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 2fr 2fr 2fr 2fr 1fr;
+    font-size: 20px;
     gap: 5%;
 }
 
@@ -253,6 +273,14 @@ input.register[type=submit]:hover, input.register[type=submit]:active {
 
 a {
     font-family: Arial, Helvetica, sans-serif;
+}
+
+a.logout {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
 }
 
 a.login, a.register, a.play, a.create, a.profile, a.welcome {

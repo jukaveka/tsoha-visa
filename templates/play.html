@@ -1,26 +1,51 @@
-<h2> Selaa ja pelaa visoja </h2>
-<hr>
-{% for quiz in quiz_list %}
-<form action="/play/" method="get">
-    <p> {{ quiz.name }}</p>
-    <p> Kategoria - {{ quiz.category }} </p>
-    <p> Luoja - {{ quiz.nickname }} </p>
-    <p> Pelattu - {{ quiz.games_played }} kertaa </p>
-    <p> Arvostelut - {{ quiz.rating }} / 5 </p>
-    <input type="hidden" name="quiz_id" value={{quiz.id}}>
-    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
-    <input type="submit" value="Pelaa Visa">
-</form>
-<form action="/play/reviews/" method="get">
-    <input type="hidden" name="quiz_id" value={{quiz.id}}>
-    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
-    <input type="submit" value="Katso arvostelut">
-</form>
-<hr>
-{% endfor %}
-<a href="/">
-    <h4> Takaisin etusivulle </h4>
-</a>
-<a href="/logout">
-    <h4> Kirjaudu ulos </h4>
-</a>
+<!DOCTYPE html>
+<link rel="stylesheet" href="static/main.css">
+<meta name="viewport" content="width=device-width, initial_scale=1">
+
+<head>
+    <title> Pelaa visoja </title>
+</head>
+
+<body>
+    <div class="header bar">
+        <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+                alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=70px
+                width=70px style="float:right"> </div>
+        <div id="app-name"> Tsoha-visa </div>
+        {% if session.user_id %}
+        <div id="logout"> <a id="logout" href="/logout"> Kirjaudu ulos </a></div>
+        {% endif %}
+    </div>
+    <div class="list-wrapper">
+        {% for quiz in quiz_list %}
+        <form action="/play/" method="get">
+            <p> {{ quiz.name }}</p>
+            <p> Kategoria - {{ quiz.category }} </p>
+            <p> Luoja - {{ quiz.nickname }} </p>
+            <p> Pelattu - {{ quiz.games_played }} kertaa </p>
+            <p> Arvostelut - {{ quiz.rating }} / 5 </p>
+            <input type="hidden" name="quiz_id" value={{quiz.id}}>
+            <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
+            <input type="submit" value="Pelaa Visa">
+        </form>
+        <form action="/play/reviews/" method="get">
+            <input type="hidden" name="quiz_id" value={{quiz.id}}>
+            <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
+            <input type="submit" value="Katso arvostelut">
+        </form>
+        <hr>
+        {% endfor %}
+    </div>
+    <div class="bottom bar">
+        <div class="bottom-item"></div>
+        <div class="bottom-item">
+            <div id="icons"> Käytetyt ikonit </div>
+        </div>
+        <div class="bottom-item">
+            <div id="source"> <a class="bottom" href="https://github.com/jukaveka/tsoha-visa"> Lähdekoodi </a> </div>
+        </div>
+        <div class="bottom-item">
+            <div id="contact"> <a class="bottom" href="mailto:jukaveka@ad.helsinki.fi"> Ota yhteyttä </a> </div>
+        </div>
+    </div>
+</body>
