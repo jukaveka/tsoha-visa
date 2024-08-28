@@ -74,32 +74,18 @@
     grid-column: 2;
 }
 
-.index-wrapper {
+.wrapper {
     position: absolute;
     width: 67%;
     height: 67%;
     top: 16%;
     left: 16%;
     font-family: Arial, Helvetica, sans-serif;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
     font-size: 20px;
-    gap: 5%;
-}
-
-.quiz-wrapper {
-    position: absolute;
-    width: 67%;
-    height: 67%;
-    top: 16%;
-    left: 16%;
-    font-family: Arial, Helvetica, sans-serif;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 2fr 2fr 2fr 2fr 2fr 1fr;
-    font-size: 20px;
-    gap: 5%;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 2%;
 }
 
 .section {
@@ -109,10 +95,11 @@
 }
 
 .branding {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-row-start: 1;
+    grid-row-end: 3;
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 7;
+    grid-template-columns: 1fr 1fr;
     gap: 5%;
     align-content: center;
     text-align: center;
@@ -120,129 +107,109 @@
 }
 
 .branding #logo {
+    grid-column: 1;
+    align-content: center;
     display: block;
 }
 
 .branding #app-name {
+    grid-column: 2;
     align-content: center;
     text-align: left;
     color: black;
+    
 }
 
 .user-form {
-    grid-column: span 3 / 4;
-    display: grid;
-    grid-template-columns: 1fr 300px 1fr;
-    grid-template-rows: 300px 100px;
+    grid-column-start: 1;
+    grid-column-end: 7;
+    grid-row-start: 3;
+    grid-row-end: 7;
     align-content: start;
-    text-align: left;
-    font-weight: bold;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
     color: black;
 }
 
 .user-form #login-register {
-    grid-column: 2;
+    align-content: center;
+    width: 300px;
 }
 
 .user-form #login-register-button {
-    grid-row: 2;
-    grid-column: 2;
+    width: 200px;
     align-content: center;
-    font-size: 16px;
-    font-weight: normal;
-    text-align: center;
+    justify-content: center;
+    font-weight: normal; 
 }
 
 input {
     width: 100%;
+    margin-top: 10px;
     box-sizing: border-box;
 }
 
-.login {
-    grid-template-columns: 1fr 1fr 2fr;
-    align-content: start;
-    text-align: right;
-}
-
-.login #icon {
-    grid-column: 2;
-    margin:auto;
-}
-
-.login #button {
-    grid-column-start: 3;
-    background-color: #45CB6A;
-}
-
-.register {
-    grid-template-columns: 1fr 2fr 1fr;
-    align-content: start;
+p {
     text-align: left;
 }
 
-.register #icon {
-    grid-column: 1;
-    margin: auto;
+.login-register {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    grid-row-start: 3;
+    grid-row-end: 7;
 }
 
-.register #button {
-    grid-column-start: 2;
-    background-color: #09B1EE;
+.login-register #button {
+    align-content: start;
+    text-align: center;
+}
+
+.play, .profile, .create, .welcome {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    grid-template-columns: 2fr 1fr 2fr 2fr;
+    align-content: center;
+    text-align: left;
+    font-size: 30px;
 }
 
 .play {
-    grid-template-columns: 1fr 1fr 2fr;
-    gap: 2%;
-    align-content: end;
-    text-align: right;
+    grid-row: 3;
 }
 
-.play #icon {
-    grid-column: 2;
-    margin: auto;
-}
-
-.profile {
-    grid-template-columns: 1fr 2fr 1fr;
-    align-content: end;
-    text-align: left;
-}
-
-.profile #icon {
-    grid-column: 1;
-    margin: auto;
+.profile { 
+    grid-row: 4;
 }
 
 .create {
-    grid-template-columns: 1fr 1fr 2fr;
-    align-content: start;
-    text-align: right;
-}
-
-.create #icon {
-    grid-column: 2;
-    margin: auto;
+    grid-row: 5;
 }
 
 .welcome {
-    grid-template-columns: 1fr 2fr 1fr;
-    align-content: start;
-    text-align: left;
+    grid-row: 6;
     color: #33BA7B;
 }
 
-.welcome #icon {
-    grid-column: 1;
-    margin: auto;
+.play #icon, .profile #icon, .create #icon, .welcome #icon {
+    grid-column: 2;
+    align-content: center;
+    text-align: right;
 }
 
+.play #link, .profile #link, .create #link, .welcome #link {
+    grid-column: 3;
+    align-content: center;
+    text-align: left;
+}
 a {
     color: white;
 }
 
 input.login, input.register {
-    padding: 5%;
-    width: 100%;
+    padding: 15px;
+    width: 200px;
     text-align: center;
     color: white;
     text-decoration: none;
@@ -283,11 +250,26 @@ a.logout {
     text-align: center;
 }
 
-a.login, a.register, a.play, a.create, a.profile, a.welcome {
-    padding: 10%;
+ a.play, a.create, a.profile, a.welcome {
+    grid-column: 3;
+    padding: 15px;
+    width: 250px;
+    text-align: center;
+    align-content: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 50px;
+}
+
+a.login, a.register {
+    padding: 15px;
+    width: 200px;
     text-align: center;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     display: inline-block;
     box-sizing: border-box;
@@ -340,9 +322,9 @@ a.welcome:link, a.welcome:visited {
 }
 
 a.login-register-link, a.register-login-link {
-    width: 100%;
+    width: 200px;
     font-size: 16px;
-    padding: 5%;
+    padding: 15px;
     text-align: center;
     text-decoration: none;
     font-weight: bold;

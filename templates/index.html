@@ -16,27 +16,7 @@
         <div id="logout"> <a id="logout" href="/logout"> Kirjaudu ulos </a></div>
         {% endif %}
     </div>
-    {% if session.user_id %}
-    <div class="index-wrapper">
-        <div class="section play">
-            <div id="icon"> <img src="{{url_for('static', filename='letter-a-red.png')}}" alt="Orange red icon with capital letter A in the middle" height=75px widht=75px></div>
-            <a class="play" href="/play"> Pelaa visoja </a>
-        </div>
-        <div class="section profile">
-            <div id="icon"> <img src="{{url_for('static', filename='letter-c-yellow.png')}}" alt="Deep yellow icon with capital letter C in the middle" height=75px widht=75px></div>
-            <a class="profile" href="/profile"> Profiili </a>
-        </div>
-        <div class="section create">
-            <div id="icon"> <img src="{{url_for('static', filename='letter-b-blue.png')}}" alt="Sky blue icon with capital letter B in the middle" height=75px widht=75px></div>
-            <a class="create" href="/new"> Luo visa </a>
-        </div>
-        <div class="section welcome">
-            <div id="icon"> <img src="{{url_for('static', filename='checkmark.png')}}" alt="Vibrant green icon with checkmark in the middle" height=75px widht=75px></div>
-            <a class="welcome" href="/"> Tervetuloa visailemaan! </a>
-        </div>
-    </div>
-    {% else %}
-    <div class="index-wrapper">
+    <div class="wrapper">
         <div class="section branding">
             <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
                     alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=125px
@@ -45,18 +25,36 @@
                 <h2>Tsoha-visa</h2>
             </div>
         </div>
-        <div class="section login">
-            <div id="icon"> <img src="{{url_for('static', filename='login.png')}}"
-                    alt="Vihreä ikoni, jossa on ympyrä ja ympyrän sisään menevä nuoli" width=75px height=75px
-                    style="float:center"> </div>
-            <a class="login" href="/login"> Kirjaudu sisään </a>
+        {% if session.user_id %}
+        <div class="section play">
+            <div id="icon"> <img src="{{url_for('static', filename='letter-a-red.png')}}"
+                    alt="Orange red icon with capital letter A in the middle" height=50px widht=50px></div>
+            <div id="link"> <a class="play" href="/play"> Pelaa visoja </a> </div>
         </div>
-        <div class="section register">
-            <div id="icon"> <img src="{{url_for('static', filename='register.png')}}"
-                    alt="Sininen ikoni, jossa on ihmisen ääriviivat ja plusmerkki hänen oikealla puolellaan" width=75px
-                    height=75px> </div>
+        <div class="section profile">
+            <div id="icon"> <img src="{{url_for('static', filename='letter-c-yellow.png')}}"
+                    alt="Deep yellow icon with capital letter C in the middle" height=50x widht=50px></div>
+            <div id="link"> <a class="profile" href="/profile"> Profiili </a> </div>
+        </div>
+        <div class="section create">
+            <div id="icon"> <img src="{{url_for('static', filename='letter-b-blue.png')}}"
+                    alt="Sky blue icon with capital letter B in the middle" height=50px widht=50px></div>
+            <div id="link"> <a class="create" href="/new"> Luo visa </a> </div>
+        </div>
+        <div class="section welcome">
+            <div id="icon"> <img src="{{url_for('static', filename='checkmark.png')}}"
+                    alt="Vibrant green icon with checkmark in the middle" height=50px widht=50px></div>
+            <div id="link"> <a class="welcome" href="/"> Tervetuloa visailemaan! </a> </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="section login-register">
+        <div id="button">
+            <a class="login" href="/login"> Kirjaudu sisään </a>
+            <br> <br>
             <a class="register" href="/register"> Luo tunnus </a>
         </div>
+    </div>
     </div>
     {% endif %}
     <div class="bottom bar">
