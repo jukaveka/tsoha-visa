@@ -3,6 +3,12 @@
     font-size: 24px;
 }
 
+hr {
+    border: 2px;
+    border-color: #201E1F;
+    border-radius: 10px;
+}
+
 .bar {
     overflow: hidden;
     position: absolute;
@@ -192,6 +198,94 @@ p {
     color: #33BA7B;
 }
 
+.quiz {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr 2fr;
+    grid-template-rows: repeat(2, 1fr);
+    text-align: center;
+    align-content: center;
+    background-color: #F7F6F7;
+}
+
+.quiz #name {
+    grid-column: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    font-size: 24px;
+    align-content: center;
+    color: black;
+}
+
+.quiz #category, .quiz #played-games, .quiz #rating, .quiz #play, .quiz #reviews {
+    align-content: center;
+    align-self: center;
+    color: white;
+}
+
+.quiz #category, .quiz #played-games, .quiz #rating {
+    width: 100px;
+    height: 30px;
+    border-radius: 50px;
+    font-size: 12px;
+}
+
+.quiz #category {
+    grid-column: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background-color: gray;
+}
+
+.quiz #played-games, .quiz #rating {
+    grid-column: 4;
+}
+
+.quiz #played-games {
+    grid-row: 1;
+    background-color: #FFFFFF;
+    color: black;
+}
+
+.quiz #rating {
+    grid-row: 2;
+    background-color: #FFFFFF;
+    color: black;
+}
+
+.quiz #play {
+    grid-column: 5;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.quiz #reviews {
+    grid-column: 6;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.nav-button {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+    align-content: center;
+}
+
+.nav-button #previous {
+    grid-column: 2;
+}
+
+.nav-button #index {
+    grid-column: 3;
+}
+
+.nav-button #next {
+    grid-column: 4;
+}
+
 .play #icon, .profile #icon, .create #icon, .welcome #icon {
     grid-column: 2;
     align-content: center;
@@ -234,6 +328,36 @@ input.register[type=submit] {
 }
 
 input.register[type=submit]:hover, input.register[type=submit]:active {
+    background-color: #0796CA;
+}
+
+input.play, input.reviews {
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 50px;
+    border: none;
+}
+
+input.play[type=submit] {
+    background-color: #33BA7B;
+}
+
+input.play[type=submit]:hover, input.play[type=submit]:active {
+    background-color: #2B9E68;
+}
+
+input.reviews[type=submit] {
+    background-color: #09B1EE;
+}
+
+input.reviews[type=submit]:hover, input.reviews[type=submit]:active {
     background-color: #0796CA;
 }
 
@@ -349,8 +473,58 @@ a.register-login-link:hover, a.register-login:active {
     background-color: #33B558;
 }
 
+a.previous, a.index, a.next {
+    width: 150px;
+    font-size: 16px;
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 50px;
+}
+
+a.previous:link, a.previous:visited, a.index:link, a.index:visited, a.next:link, a.next:visited {
+    background-color: #302D2F;
+}
+
+a.previous:hover, a.previous:active, a.index:hover, a.index:active, a.next:hover, a.next:active {
+    background-color: #F6F6F6;
+    color: #201E1F;
+}
+
+
 a.bottom {
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     text-align: center;
 }
+
+
+{% for quiz in quizzes %}
+    <p> Kategoria - {{ quiz.category }} </p>
+    <p> Luoja - {{ quiz.nickname }} </p>
+    <p> Pelattu - {{ quiz.games_played }} kertaa </p>
+    <p> Arvostelut - {{ quiz.rating }} / 5 </p>
+    <form action="/play/" method="get">
+        <input type="hidden" name="quiz_id" value={{quiz.id}}>
+        <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
+        <input type="submit" value="Pelaa Visa">
+    </form>
+    <form action="/play/reviews/" method="get">
+        <input type="hidden" name="quiz_id" value={{quiz.id}}>
+        <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
+        <input type="submit" value="Katso arvostelut">
+    </form>
+</div>
+{% endfor %}
+
+
+{% if current_page > 1 %}
+<a href={{url_for("play", current_page=current_page-1)}}> Edelliset visat </a>
+{% endif %}
+
+{% if current_page < total_pages %}
+<a href={{url_for("play", current_page=current_page+1)}}> Seuraavat visat </a>
+{% endif %}

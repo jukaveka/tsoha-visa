@@ -16,26 +16,41 @@
         <div id="logout"> <a id="logout" href="/logout"> Kirjaudu ulos </a></div>
         {% endif %}
     </div>
-    <div class="list-wrapper">
-        {% for quiz in quiz_list %}
-        <form action="/play/" method="get">
-            <p> {{ quiz.name }}</p>
-            <p> Kategoria - {{ quiz.category }} </p>
-            <p> Luoja - {{ quiz.nickname }} </p>
-            <p> Pelattu - {{ quiz.games_played }} kertaa </p>
-            <p> Arvostelut - {{ quiz.rating }} / 5 </p>
-            <input type="hidden" name="quiz_id" value={{quiz.id}}>
-            <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
-            <input type="submit" value="Pelaa Visa">
-        </form>
-        <form action="/play/reviews/" method="get">
-            <input type="hidden" name="quiz_id" value={{quiz.id}}>
-            <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
-            <input type="submit" value="Katso arvostelut">
-        </form>
-        <hr>
+    <div class="wrapper">
+        {% for quiz in quizzes %}
+        <div class="section quiz">
+            <div id="name"> {{ quiz.name }} </div>
+            <div id="category"> {{ quiz.category }}</div>
+            <div id="played-games"> {{ quiz.games_played }} pelikertaa </div>
+            <div id="rating"> {{ quiz.rating }} / 5 </div>
+            <div id="play"> 
+                <form action="/play/" method="get">
+                    <input type="hidden" name="quiz_id" value={{quiz.id}}>
+                    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
+                    <input class="play" type="submit" value="Pelaa">
+                </form>
+            </div>
+            <div id="reviews">
+                <form action="/play/reviews/" method="get">
+                    <input type="hidden" name="quiz_id" value={{quiz.id}}>
+                    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
+                    <input class="reviews" type="submit" value="Arvostelut">
+                </form>
+            </div>
+        </div>
         {% endfor %}
-    </div>
+        <div class="section nav-button">
+            <div id="previous">
+                <a class="previous" href={{url_for("play", current_page=current_page-1)}}> Edelliset </a>
+            </div>
+            <div id="index">
+                <a class="index" href="/"> Etusivu </a>
+            </div>
+            <div id="next">
+                <a class="next" href={{url_for("play", current_page=current_page+1)}}> Seuraavat </a>
+            </div>
+        </div>
+    </div> 
     <div class="bottom bar">
         <div class="bottom-item"></div>
         <div class="bottom-item">
