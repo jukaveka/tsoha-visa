@@ -7,17 +7,22 @@ def index():
 	
 	return(render_template("index.html"))
 
-@app.route("/play")
+@app.route("/browse")
 def browse():
 	
 	session["game"] = 0
+	current_page = request.args.get('page', 1, type=int)
 	quiz_list = quizzes.get_quiz_list()
-	
+
 	if quiz_list == False:
 		
 		return render_template("error.html", message="Visojen hakemisessa tapahtui virhe")
+
+	result = quizzes.get_page_items(current_page, quiz_list)
+	items = result[0]
+	total_pages = result[1]
 	
-	return render_template("play.html", quiz_list=quiz_list)
+	return render_template("browse.html", quizzes=items, page=current_page, total_pages=total_pages)
 
 @app.route("/play/", methods=["GET", "POST"])
 def play():

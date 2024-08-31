@@ -18,7 +18,7 @@
     </div>
     <div class="wrapper">
         {% for quiz in quizzes %}
-        <div class="section quiz">
+        <div class="section quiz-info">
             <div id="name"> {{ quiz.name }} </div>
             <div id="category"> {{ quiz.category }}</div>
             <div id="played-games"> {{ quiz.games_played }} pelikertaa </div>
@@ -41,13 +41,17 @@
         {% endfor %}
         <div class="section nav-button">
             <div id="previous">
-                <a class="previous" href={{url_for("play", current_page=current_page-1)}}> Edelliset </a>
+                {% if page > 1 %}
+                <a class="previous" href={{url_for("browse", page=page-1)}}> Edelliset </a>
+                {% endif %}
             </div>
             <div id="index">
                 <a class="index" href="/"> Etusivu </a>
             </div>
             <div id="next">
-                <a class="next" href={{url_for("play", current_page=current_page+1)}}> Seuraavat </a>
+                {% if page == total_pages %}
+                <a class="next" href={{url_for("browse", page=page+1)}}> Seuraavat </a>
+                {% endif %}
             </div>
         </div>
     </div> 
