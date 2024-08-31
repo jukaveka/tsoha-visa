@@ -1,31 +1,52 @@
-<p> {{ results.quiz_name }} tulokset </p>
-<p> Oikeat vastaukset - {{ results.correct_answer_count }} </p>
-<p> Vastasit oikein {{ results.correct_answer_percent }} % kysymyksistä </p>
-<hr>
-{% for answer in answers %}
-<p> Kysymys - {{ answer.question }} </p>
-<p> Vastauksesi - {{ answer.user_answer }} </p>
-<p> Oikea vastaus - {{ answer.correct_answer }} </p>
-<p> Vastauksesi oli {{ answer.was_user_correct }} </p>
-<hr>
-{% endfor %}
-<p>
-<form action="/review" method="post">
-    <p> Arvostele visa </p>
-    <input type="range" name="grade" min=1 max=5>
-    <p> Jätä kommentti visasta</p>
-    <textarea name="comment" rows=5 cols=50></textarea>
-    <input type="hidden" name="quiz_id" value={{results.quiz_id}}>
-    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
-    <p><input type="submit" value="Lähetä arvostelu"></p>
-</form>
-</p>
-<p>
-    <a href="/"> Palaa etusivulle </a>
-</p>
-<p>
-    <a href="/play"> Selaa visoja </a>
-</p>
-<p>
-    <a href="/logout"> Kirjaudu ulos </a>
-</p>
+<!DOCTYPE html>
+<link rel="stylesheet" href="../static/main.css">
+<meta name="viewport" content="width=device-width, initial_scale=1">
+
+<head>
+    <title> Pelaa visoja </title>
+</head>
+
+<body>
+    <div class="header bar">
+        <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+                alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=70px
+                width=70px style="float:right"> </div>
+        <div id="app-name"> Tsoha-visa </div>
+        {% if session.user_id %}
+        <div id="logout"> <a id="logout" href="/logout"> Kirjaudu ulos </a></div>
+        {% endif %}
+    </div>
+    <div class="wrapper">
+        <div class="section game-info">
+            <div id="name"> {{ results.quiz_name }} </div>
+            <div id="correct-answers"> Oikeat vastaukset - {{ results.correct_answer_count }} </div>
+        </div>
+        {% for answer in answers %}
+        <div class="section user-answer">
+            <div id="question"> {{ answer.question }} </div>
+            {% if answer.user_answer == answer.correct_answer %}
+            <div id="correct-answer"> {{ answer.user_answer }} </div>
+            {% else %}
+            <div id="incorrect-answer"> {{ answer.user_answer }} </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="section nav-button">
+            <div id="browse"> <a class="browse" href="/browse"> Selaa </a> </div>
+            <div id="index"> <a class="index" href="/"> Etusivu </a></div>
+            <div id="review"> <a class="review" href="/review"> Arvostele </a> </div>
+        </div>
+    </div>
+    <div class="bottom bar">
+        <div class="bottom-item"></div>
+        <div class="bottom-item">
+            <div id="icons"> Käytetyt ikonit </div>
+        </div>
+        <div class="bottom-item">
+            <div id="source"> <a class="bottom" href="https://github.com/jukaveka/tsoha-visa"> Lähdekoodi </a> </div>
+        </div>
+        <div class="bottom-item">
+            <div id="contact"> <a class="bottom" href="mailto:jukaveka@ad.helsinki.fi"> Ota yhteyttä </a> </div>
+        </div>
+    </div>
+</body>

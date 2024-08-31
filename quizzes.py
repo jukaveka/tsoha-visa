@@ -66,9 +66,6 @@ def get_quiz_reviews(quiz_id):
 	result = db.session.execute(sql, {"quiz_id":quiz_id})
 	reviews = result.fetchall()
 
-	for review in reviews:
-		print(review.reviewer, review.grade, review.comment)
-
 	return reviews
 
 def get_question(quiz_id, question_number):
@@ -101,6 +98,14 @@ def get_question(quiz_id, question_number):
 	db.session.commit()
 
 	return question
+
+def get_choices(quiz_id, question_number):
+
+	sql = text("SELECT choice.id, choice.choice FROM choices AS choice, questions AS question WHERE choice.question_id = question.id AND question.quiz_id = :quiz_id AND question.question_number = :question_number")
+	result = db.session.execute(sql, {"quiz_id":quiz_id, "question_number":question_number})
+	choices = result.fetchall()
+
+	return choices
 
 def get_results(game_id):
 
@@ -170,6 +175,24 @@ def create_game(quiz_id, user_id):
 
 	return game
 
+def quit_game(game_id):
+
+	try:
+		sql = text("DELETE FROM answers WHERE game_id = :game_id")
+		db.session.execute(sql, {"game_id":game_id})
+		db.session.commit()
+	except:
+		return False
+
+	try:
+		sql = text("DELETE FROM games WHERE id = :game_id")
+		db.session.execute(sql, {"game_id":game_id})
+		db.session.commit()
+	except:
+		return False
+	
+	return True
+
 def create_quiz(name, category):
 
 	try:
@@ -232,7 +255,9 @@ def add_answer(game_id, question_id, choice_id):
 
 	return True
 
-def add_review(quiz_id, grade, comment):
+def add_review(game_id, grade, comment):
+
+	quiz_id = get_game_quiz(game_id)
 
 	try:
 		sql = text("INSERT INTO reviews (quiz_id, user_id, grade, comment) VALUES (:quiz_id, :user_id, :grade, :comment)")
@@ -242,6 +267,14 @@ def add_review(quiz_id, grade, comment):
 		return False
 	
 	return True
+
+def get_game_quiz(game_id):
+	
+	sql = text("SELECT quiz_id FROM games WHERE id = :game_id")
+	result = db.session.execute(sql, {"game_id":game_id})
+	game = result.fetchone()
+
+	return game.quiz_id
 
 def validate_answer(question_id, id):
 	

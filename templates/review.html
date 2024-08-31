@@ -17,30 +17,16 @@
         {% endif %}
     </div>
     <div class="wrapper">
-        <form class="section quiz" method="post">
-            <div id="question"> {{ question.question }} </div>
-            {% for choice in choices %}
-            <div id="choice">
-                <div class="section choice">
-                    <div id="button">
-                        <input class="choice" type="radio" name="choice" value={{choice.id}}>
-                    </div>
-                    <div id="text">
-                        <label for="choice"> {{ choice.choice }} </label>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            <input type="hidden" name="quiz_id" value={{quiz.id}}>
-            <input type="hidden" name="question_id" value={{question.id}}>
-            <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
-            <div id="answer">
-                <input class="answer" type="submit" value="Vastaa">
-            </div>
-            <div id="quit">
-                <a class="quit" href={{url_for("quit")}}> Lopeta </a>
-            </div>
-        </form>
+        <div class="section review-form">
+            <form action="/review" method="post">
+                <p> Arvostele visa </p>
+                <input type="range" name="grade" min=1 max=5>
+                <p> Jätä kommentti visasta</p>
+                <textarea name="comment" rows=5 cols=50></textarea>
+                <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
+                <p><input type="submit" value="Lähetä arvostelu"></p>
+            </form>
+        </div>
     </div>
     <div class="bottom bar">
         <div class="bottom-item"></div>

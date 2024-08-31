@@ -35,8 +35,9 @@ def play():
 		
 		quiz = quizzes.get_quiz(request.args.get("quiz_id"))
 		question = quizzes.get_question(quiz.id, quizzes.get_answer_count(session.get("game")) + 1)
+		choices = quizzes.get_choices(quiz.id, quizzes.get_answer_count(session.get("game")) + 1)
 	
-		return render_template("quiz.html", quiz=quiz, question=question)
+		return render_template("quiz.html", quiz=quiz, question=question, choices=choices)
 	
 	if request.method == "POST":
 
@@ -56,8 +57,9 @@ def play():
 
 					quiz = quizzes.get_quiz(quiz_id)
 					question = quizzes.get_question(quiz.id, quizzes.get_answer_count(session.get("game")) + 1)
+					choices = quizzes.get_choices(quiz.id, quizzes.get_answer_count(session.get("game")) + 1)
 
-					return render_template("quiz.html", quiz=quiz, question=question)
+					return render_template("quiz.html", quiz=quiz, question=question, choices=choices)
 			else:
 
 				return render_template("error.html", message="Vastauksen lisäämisessä tapahtui virhe")
@@ -65,6 +67,16 @@ def play():
 		else:
 
 			abort(403)
+
+@app.route("/quit")
+def quit():
+
+	game_id = session.get("game", 0)
+
+	if quizzes.quit_game(game_id):
+		return redirect("/browse")
+	else:
+		return render_template("error.html", message="Virhe pelin lopettamisessa")
 		
 @app.route("/play/reviews/")
 def reviews():
@@ -83,26 +95,32 @@ def result():
 
 	return render_template("result.html", results=results, answers=answers)
 
-@app.route("/review", methods=["POST"])
+@app.route("/review", methods=["GET", "POST"])
 def review():
 
-	if users.check_csrf_token(request.form["csrf_token"]):
+	if request.method == "GET":
 
-		quiz_id = request.form["quiz_id"]
-		grade = request.form["grade"]
-		comment = request.form["comment"]
+		return render_template("review.html")
 
-		if quizzes.add_review(quiz_id, grade, comment):
+	if request.method == "POST":
 
-			return redirect("/")
+		if users.check_csrf_token(request.form["csrf_token"]):
+
+			game_id = session.get("game", 0)
+			grade = request.form["grade"]
+			comment = request.form["comment"]
+
+			if quizzes.add_review(game_id, grade, comment):
+
+				return redirect("/")
+
+			else:
+
+				return render_template("error.html", message="Tapahtui virhe arvostelun jättämisessä")
 
 		else:
 
-			return render_template("error.html", message="Tapahtui virhe arvostelun jättämisessä")
-
-	else:
-
-		abort(403)
+			abort(403)
 
 @app.route("/new")
 def new():
