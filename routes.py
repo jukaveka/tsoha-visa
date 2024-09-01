@@ -79,7 +79,7 @@ def quit():
 	else:
 		return render_template("error.html", message="Virhe pelin lopettamisessa")
 	
-# Stppping quiz creation
+# Stopping quiz creation
 @app.route("/stop")
 def stop():
 

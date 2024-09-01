@@ -585,8 +585,8 @@ label {
 }
 
 .question-form {
-    grid-column-start: 1;
-    grid-column-end: 7;
+    grid-column-start: 2;
+    grid-column-end: 6;
     grid-row-start: 1;
     grid-row-end: 7;
     grid-template-columns: 0.5fr 1fr 4fr;
@@ -602,7 +602,6 @@ label {
     grid-column-start: 1;
     grid-column-end: 7;
     grid-template-columns: 1fr 2fr;
-    background-color: #C8EFFD;
     color: black;
     border-radius: 10px;
     align-content: center;
@@ -611,6 +610,7 @@ label {
 
 .question #label {
     text-align: right;
+    font-weight: bold;
     grid-column: 1;
     font-size: 24px;
     align-content: center;
@@ -648,6 +648,35 @@ label {
 .choices #textarea {
     grid-column: 3;
     text-align: left;
+}
+
+.error {
+    grid-row-start: 2;
+    grid-row-end: 5;
+    grid-column-start: 2;
+    grid-column-end: 6;
+    grid-template-rows: repeat(3, 1fr);
+    color: black;
+    text-align: center;
+}
+
+.error #header {
+    grid-row: 1;
+    color: #E7400B;
+    font-size: 48px;
+    font-weight: bold;
+    align-content: center;
+}
+
+.error #message {
+    grid-row: 2;
+    font-size: 16px;
+    align-content: center;
+}
+
+.error #button {
+    grid-row: 3;
+    align-content: center;
 }
 
 a {
@@ -746,19 +775,21 @@ input.name, input.category {
 }
 
 input.question {
-    border: solid;
-    border-color: white;
     background-color: #F7F6F7;
-    width: 90%;
+    width: 300px;
     height: 35px;
+    font-size: 16px;
+    align-content: center;
     background-color: white;
     border-radius: 5px;
 }
 
 input.choice {
     border-color: #F7F6F7;
-    width: 66%;
-    height: 33%;
+    font-size: 16px;
+    width: 250px;
+    height: 35px;
+    padding: 0 5px;
     background-color: #F7F6F7;
     border-radius: 5px;
 }
