@@ -46,7 +46,7 @@
 .bottom {
     display: grid;
     gap: 2%;
-    grid-template-columns: 7fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-column-start: 2;
     background-color: #201E1F;
     align-content: center;
@@ -64,15 +64,16 @@
 }
 
 .bottom-item #contact {
-    grid-column: 4;
+    grid-column: 7;
 }
 
 .bottom-item #source {
-    grid-column: 3;
+    grid-column: 6;
 }
 
 .bottom-item #icons {
     grid-column: 2;
+    font-size: 12px;
 }
 
 .wrapper {
@@ -615,7 +616,7 @@ label {
     text-align: right;
     font-weight: bold;
     grid-column: 1;
-    font-size: 24px;
+    font-size:20px;
     align-content: center;
 }
 
@@ -646,6 +647,7 @@ label {
 
 .choices #label {
     grid-column: 2;
+    font-size: 16px;
 }
 
 .choices #textarea {
@@ -835,13 +837,20 @@ input.choice {
 }
 
 input.choice-radio[type=radio] {
-    height: 25px;
-    width: 25px;
+    height: 15px;
+    width: 15px;
 }
 
 a {
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
+}
+
+a.icons {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    text-align: center;
 }
 
 a.logout {
