@@ -1,6 +1,6 @@
 CREATE TABLE users (id SERIAL PRIMARY KEY, nickname TEXT, password TEXT, role TEXT);
 
-CREATE TYPE quiz_category AS ENUM ('Sports', 'TV and Movies', 'Music', 'Video games', 'Literature', 'Politics', 'Geography', 'History', 'Business', 'Technology', 'General', 'Science', 'Math', 'Biology', 'Culinary', 'Culture', 'Trivia');
+CREATE TYPE quiz_category AS ENUM ('Yleinen', 'Urheilu', 'TV', 'Elokuvat' 'Musiikki', 'Videopelit', 'Kirjallisuus', 'Politiikka', 'Maantieto', 'Historia', 'Liiketoiminta', 'Teknologia', 'Tiede', 'Kemia', 'Matematiikka', 'Biologia', 'Ruoka ja juoma', 'Kulttuuri', 'Trivia');
 
 CREATE TABLE quizzes (id SERIAL PRIMARY KEY, creator_id INTEGER REFERENCES users, name TEXT, category quiz_category);
 
@@ -21,9 +21,9 @@ INSERT INTO users (nickname, password) VALUES ('Tero', 'scrypt:32768:8:1$euuGzsL
 1027302dd3e8e366da88abcbe3106dcf39cf2d68a7f05236b4aa07f43572131e21fe95a4a072957e
 2dcc5df331035512a9e6c34');
 
-INSERT INTO quizzes (creator_id, name, category) VALUES (1, 'Snookervisa', 'Sports');
-INSERT INTO quizzes (creator_id, name, category) VALUES (2, 'Videopelivisa', 'Video games'); 
-INSERT INTO quizzes (creator_id, name, category) VALUES (1, 'NHL-visa', 'Sports');
+INSERT INTO quizzes (creator_id, name, category) VALUES (1, 'Snookervisa', 'Urheilu');
+INSERT INTO quizzes (creator_id, name, category) VALUES (2, 'Videopelivisa', 'Videopelit'); 
+INSERT INTO quizzes (creator_id, name, category) VALUES (1, 'NHL-visa', 'Urheilu');
 
 INSERT INTO questions (quiz_id, question_number, question) VALUES (1, 1, 'Kuka voitti ensimmäisen Snookerin maailmanmestaruuden vuonna 1927?');
 INSERT INTO questions (quiz_id, question_number, question) VALUES (1, 2, 'Ensimmäinen Ison-Britannian ulkopuolinen voittaja, Horace Lindrum, nähtiin vuonna 1952. Mistä maasta hän on kotoisin?');
