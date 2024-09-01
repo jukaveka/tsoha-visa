@@ -679,6 +679,41 @@ label {
     align-content: center;
 }
 
+.stats-header {
+    grid-column-start: 2;
+    grid-column-end: 6;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: black;
+}
+
+.game-stats, .quiz-stats {
+    grid-row-start: 2;
+    grid-row-end: 6;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.game-stats {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-template-rows: repeat(5, 1fr);
+    background-color: #6DD4FA;
+}
+
+.quiz-stats {
+    grid-column-start: 4;
+    grid-column-end: 6;
+    grid-template-rows: repeat(4, 1fr);
+    background-color: #A2E5B5;
+}
+
+.quiz-stats #item, .game-stats #item{
+    align-content: center;
+    color: black;
+}
+
 a {
     color: white;
 }

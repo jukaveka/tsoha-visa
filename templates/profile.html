@@ -1,81 +1,54 @@
-<p>
-    <h3> 
-        Käyttäjätiedot 
-    </h3>
-</p>
-<p> 
-    Tunnus 
-    <br>
-    {{ user.nickname }}
-</p>
-<hr>
-<p> <h3> Pelatut visat </h3></p>
-<p> 
-    Pelattuja visoja 
-    <br>
-    {{ games.played_quizzes }}
-</p>
-<p>
-    Suosikkikategoria
-    <br>
-    Coming soon or never
-</p>
-<p> 
-    Pelikerrat 
-    <br>
-    {{ games.played_games}}
-</p>
-<p> 
-    Vastaukset 
-    <br>
-    {{ games.all_answers}}
-</p>
-<p> 
-    Oikeat vastaukset 
-    <br>
-    {{ games.correct_answers}}
-</p>
-<p>
-    Vastausprosentti
-    <br>
-    {{ games.correct_answer_percent }}
-</p>
-<hr>
-<p> 
-    <h3>
-        Omat visat
-    </h3> 
-</p>
-<p> 
-    Luodut visat
-    <br>
-    {{ quizzes.created_quizzes }}
-</p>
-<p>
-    Suosikkikategoria
-    <br>
-    Coming soon or never
-</p>
-<p>
-    Pelikerrat
-    <br>
-    {{ quizzes.created_quizzes_played_games }}
-</p>
-<p>
-    Jätetyt arvostelut
-    <br>
-    {{ quizzes.reviews }}
-</p>
-<p>
-    Kaikkien visojen arvosana
-    <br>
-    {{ quizzes.rating }}
-</p>
-<hr>
-<p>
-    <a href="/"> Takaisin etusivulle </a>
-</p>
-<p>
+<!DOCTYPE html>
+<link rel="stylesheet" href="../static/main.css">
+<meta name="viewport" content="width=device-width, initial_scale=1">
 
-    <a href="/logout"> Kirjaudu ulos</a>
-</p>
+<head>
+    <title> Pelaa visoja </title>
+</head>
+
+<body>
+    <div class="header bar">
+        <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+                alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=70px
+                width=70px style="float:right"> </div>
+        <div id="app-name"> Tsoha-visa </div>
+        {% if session.user_id %}
+        <div id="logout"> <a id="logout" href="/logout"> Kirjaudu ulos </a></div>
+        {% endif %}
+    </div>
+    <div class="wrapper">
+        <div class="section stats-header">
+            Profiili - {{ user.nickname }}
+        </div>
+        <div class="section game-stats">
+            <div id="item"> Pelatut visat - {{ games.played_quizzes }} </div>
+            <div id="item"> Pelatut pelit - {{ games.played_games}} </div>
+            <div id="item"> Vastaukset - {{ games.all_answers}} </div>
+            <div id="item"> Oikeat vastaukset - {{ games.correct_answers}} </div>
+            <div id="item"> Oikeita vastauksia - {{ games.correct_answer_percent }}</div>
+        </div>
+        <div class="section quiz-stats">
+            <div id="item"> Luotuja visoja - {{ quizzes.created_quizzes }}</div>
+            <div id="item"> Visojen pelikerrat - {{ quizzes.created_quizzes_played_games }}</div>
+            <div id="item"> Arvostelut - {{ quizzes.reviews }} </div>
+            <div id="item"> Arvosana - {{ quizzes.rating }} </div>
+        </div>
+        <div class="section nav-button">
+            <div id="index">
+                <a class="index" href="/"> Etusivulle </a>
+            </div>
+        </div>
+    </div>
+    <div class="bottom bar">
+        <div class="bottom-item"></div>
+        <div class="bottom-item">
+            <div id="icons"> Käytetyt ikonit </div>
+        </div>
+        <div class="bottom-item">
+            <div id="source"> <a class="bottom" href="https://github.com/jukaveka/tsoha-visa"> Lähdekoodi </a> </div>
+        </div>
+        <div class="bottom-item">
+            <div id="contact"> <a class="bottom" href="mailto:jukaveka@ad.helsinki.fi"> Ota yhteyttä </a> </div>
+        </div>
+    </div>
+</body>
