@@ -38,13 +38,15 @@ def get_quiz_list():
 
 	return quizzes
 
-def get_page_items(current_page, quiz_list):
+def get_page_items(current_page, item_list):
 
 	items_per_page = 5
 	start_item = (current_page - 1) * items_per_page
 	end_item = start_item + items_per_page
-	total_pages = len(quiz_list) // items_per_page
-	displayed_items = quiz_list[start_item:end_item]
+	total_pages = len(item_list) // items_per_page
+	displayed_items = item_list[start_item:end_item]
+
+	print(displayed_items)
 
 	return displayed_items, total_pages
 

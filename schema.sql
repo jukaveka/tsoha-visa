@@ -1,6 +1,6 @@
 CREATE TABLE users (id SERIAL PRIMARY KEY, nickname TEXT, password TEXT, role TEXT);
 
-CREATE TYPE quiz_category AS ENUM ('Yleinen', 'Urheilu', 'TV', 'Elokuvat' 'Musiikki', 'Videopelit', 'Kirjallisuus', 'Politiikka', 'Maantieto', 'Historia', 'Liiketoiminta', 'Teknologia', 'Tiede', 'Kemia', 'Matematiikka', 'Biologia', 'Ruoka ja juoma', 'Kulttuuri', 'Trivia');
+CREATE TYPE quiz_category AS ENUM ('Yleinen', 'Urheilu', 'TV', 'Elokuvat', 'Musiikki', 'Videopelit', 'Kirjallisuus', 'Politiikka', 'Maantieto', 'Historia', 'Liiketoiminta', 'Teknologia', 'Tiede', 'Kemia', 'Matematiikka', 'Biologia', 'Ruoka ja juoma', 'Kulttuuri', 'Trivia');
 
 CREATE TABLE quizzes (id SERIAL PRIMARY KEY, creator_id INTEGER REFERENCES users, name TEXT, category quiz_category);
 

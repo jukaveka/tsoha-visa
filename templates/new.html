@@ -1,30 +1,65 @@
-<form action="/create" method="post">
-    <h2> Visan luonti </h2>
-    <h4> Nimeä visasi </h4>
-    <input type="text" name="name">
-    <p>
-    <h4> Valitse kategoria </h4>
-    <input list="categories" id="category" name="category">
-    <datalist id="categories">
-        <option value="Sports">
-        <option value="TV and Movies">
-        <option value="Music">
-        <option value="Video games">
-        <option value="Literature">
-        <option value="Politics">
-        <option value="Geography">
-        <option value="History">
-        <option value="Business">
-        <option value="Technology">
-        <option value="General">
-        <option value="Science">
-        <option value="Math">
-        <option value="Biology">
-        <option value="Culinary">
-        <option value="Culture">
-        <option value="Trivia">
-    </datalist>
-    </p>
-    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
-    <input type="submit" value="Seuraava">
-</form>
+<!DOCTYPE html>
+<link rel="stylesheet" href="../../static/main.css">
+<meta name="viewport" content="width=device-width, initial_scale=1">
+
+<head>
+    <title> Pelaa visoja </title>
+</head>
+
+<body>
+    <div class="header bar">
+        <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+                alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=70px
+                width=70px style="float:right"> </div>
+        <div id="app-name"> Tsoha-visa </div>
+        {% if session.user_id %}
+        <div id="logout"> <a id="logout" href="/logout"> Kirjaudu ulos </a></div>
+        {% endif %}
+    </div>
+    <div class="wrapper">
+        <form class="section create-form" action="/create" method="post">
+            <div id="description"> Visan luonti </div>
+            <div id="name"> Nimeä visasi </div>
+            <div id="name-textarea"> <input class="name" type="text" name="name" required></div>
+            <div id="category-label"> Valitse kategoria </div>
+            <div id="category-textarea"> <input class="category" list="categories" id="category" name="category" required> </div>
+            <datalist id="categories">
+                <option value="Yleinen">
+                <option value="Urheilu">
+                <option value="TV">
+                <option value="Elokuvat">
+                <option value="Musiikki">
+                <option value="Videopelit">
+                <option value="Kirjallisuus">
+                <option value="Politiikka">
+                <option value="Maantieto">
+                <option value="Historia">
+                <option value="Liiketoiminta">
+                <option value="Teknologia">
+                <option value="Tiede">
+                <option value="Kemia">
+                <option value="Matematiikka">
+                <option value="Biologia">
+                <option value="Ruoka ja juoma'">
+                <option value="Kulttuuri">
+                <option value="Trivia">
+            </datalist>
+            <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
+            <div id="button">
+                <input class="create-quiz" type="submit" value="Seuraava">
+            </div>
+        </form>
+    </div>
+    <div class="bottom bar">
+        <div class="bottom-item"></div>
+        <div class="bottom-item">
+            <div id="icons"> Käytetyt ikonit </div>
+        </div>
+        <div class="bottom-item">
+            <div id="source"> <a class="bottom" href="https://github.com/jukaveka/tsoha-visa"> Lähdekoodi </a> </div>
+        </div>
+        <div class="bottom-item">
+            <div id="contact"> <a class="bottom" href="mailto:jukaveka@ad.helsinki.fi"> Ota yhteyttä </a> </div>
+        </div>
+    </div>
+</body>

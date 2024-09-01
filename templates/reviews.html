@@ -1,40 +1,60 @@
-<p>
-	{{ quiz.name }}
- </p>
- <p>
-	Arvostelut
- </p>
-<hr>
-{% for review in reviews %}
-<p>
-	Arvostelija
-	<br>
-	{{ review.reviewer }}
-</p>
-<p>
-	Arvosana
-	<br>
-	{{ review.grade }} / 5
-</p>
-<p>
-	Kommentti
-	<br>
-	{{ review.comment }}
-</p>
-<hr>
-{% endfor %}
-<p>
-	<a href="/play"> 
-		Takaisin visoihin 
-	</a>
-</p>
-<p>
-	<a href="/"> 
-		Takaisin etusivulle 
-	</a>
-</p>
-<p>
-	<a href="/logout"> 
-		Kirjaudu ulos
-	</a>
-</p>
+<!DOCTYPE html>
+<link rel="stylesheet" href="../../static/main.css">
+<meta name="viewport" content="width=device-width, initial_scale=1">
+
+<head>
+	<title> Pelaa visoja </title>
+</head>
+
+<body>
+	<div class="header bar">
+		<div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+				alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=70px
+				width=70px style="float:right"> </div>
+		<div id="app-name"> Tsoha-visa </div>
+		{% if session.user_id %}
+		<div id="logout"> <a id="logout" href="/logout"> Kirjaudu ulos </a></div>
+		{% endif %}
+	</div>
+	<div class="wrapper">
+		<div class="section quiz-reviews">
+			<div id="category"> Kategoria - {{ quiz.category }} </div>
+			<div id="name"> {{ quiz.name }} </div>
+			<div id="creator"> Luoja - {{ quiz.nickname }} </div>
+		</div>
+		{% for review in reviews %}
+		<div class="section review">
+			<div id="reviewer"> Arvostelija - {{ review.reviewer }} </div>
+			<div id="grade"> Arvosana - {{ review.grade }} / 5</div>
+			<div id="comment"> {{ review.comment }} </div>
+		</div>
+		{% endfor %}
+        <div class="section nav-button">
+            <div id="previous">
+                {% if page > 1 %}
+                <a class="previous" href={{url_for("reviews", page=page-1, quiz_id=quiz.id)}}> Edelliset </a>
+                {% endif %}
+            </div>
+            <div id="index">
+                <a class="index" href="/"> Etusivu </a>
+            </div>
+            <div id="next">
+                {% if page >= total_pages %}
+                <a class="next" href={{url_for("reviews", page=page+1, quiz_id=quiz.id)}}> Seuraavat </a>
+                {% endif %}
+            </div>
+        </div>
+	</div>
+	<div class="bottom bar">
+		<div class="bottom-item"></div>
+		<div class="bottom-item">
+			<div id="icons"> Käytetyt ikonit </div>
+		</div>
+		<div class="bottom-item">
+			<div id="source"> <a class="bottom" href="https://github.com/jukaveka/tsoha-visa"> Lähdekoodi </a> </div>
+		</div>
+		<div class="bottom-item">
+			<div id="contact"> <a class="bottom" href="mailto:jukaveka@ad.helsinki.fi"> Ota yhteyttä </a> </div>
+		</div>
+	</div>
+</body>
