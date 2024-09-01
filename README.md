@@ -9,17 +9,14 @@ Visan pelaamisen jälkeen sen voi arvostella (arvosana 1-5) ja jättää komment
 
 Omia pelien ja luotujen visojen tilastoja voi tutkia omasta profiilista.
 
-Alkuperäisestä suunnitelmasta puuttuu alkuperäisin suunnitellut vaikeustasot ja vinkit. Tarkoituksena lisätä kuva-mahdollisuudet vähintään visoille.
-
 Ulkoasu
 -
 
-Ulkoasu on hyvin pelkistetty ja vaihtelee sivutasolla. Lopullinen, yhtenäistetty ulkoasu on suunnitteluvaiheessa. Alla liitettynä tämän hetken prototyyppi index-sivun ulkoasusta.
-
-![image](https://github.com/user-attachments/assets/24c642be-d377-4f4e-be7c-85429d82d6f5)
+Ulkoasua kehitetty aiemmasta. Ei kovin yhtenäinen ja edelleen keskeneräinen.
 
 Käynnistysohjeet
 -
+Sovellusta ei ole viety tuotantoon, vaan sen testaaminen onnistuu vain lokaalisti.
 
 - Kloonaa repositorio koneellesi
 - Navigoi komentokehotteessa kloonaamasi repositorion kansioon
