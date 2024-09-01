@@ -1,31 +1,59 @@
-<form action="/create/question" method="post">
-    <h2> Lisää kysymys </h2>
-    <input type="text" name="question">
-    <br>
-    <h5> Lisää vastausvaihtoehdot </h5>
-    <p> 1. vaihtoehto
-        <input type="text" name="choice1">
-    </p>
-    <p> 2. vaihtoehto
-        <input type="text" name="choice2">
-    </p>
-    <p> 3. vaihtoehto
-        <input type="text" name="choice3">
-    </p>
-    <p> 4. vaihtoehto
-        <input type="text" name="choice4">
-    </p>
-    <h5> Valitse oikea vastaus kysymykselle </h5>
-    1.
-    <input type="radio" name="correct_choice" value="choice1">
-    2.
-    <input type="radio" name="correct_choice" value="choice2">
-    3.
-    <input type="radio" name="correct_choice" value="choice3">
-    4.
-    <input type="radio" name="correct_choice" value="choice4">
-    <br><br>
-    <input type="submit" value="Lisää kysymys">
-    <input type="hidden" name="quiz_id" value={{quiz_id}}>
-    <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
-</form>
+<!DOCTYPE html>
+<link rel="stylesheet" href="../../static/main.css">
+<meta name="viewport" content="width=device-width, initial_scale=1">
+
+<head>
+    <title> Pelaa visoja </title>
+</head>
+
+<body>
+    <div class="header bar">
+        <div id="logo"> <img src="{{url_for('static', filename='tsoha-visa-logo.png')}}"
+                alt="Logo, joka koostuu A, B ja C kirjaimista, ja valintamerkistä D-kirjaimen tilalla." height=70px
+                width=70px style="float:right"> </div>
+        <div id="app-name"> Tsoha-visa </div>
+        {% if session.user_id %}
+        <div id="logout"> <a id="logout" href="/logout"> Kirjaudu ulos </a></div>
+        {% endif %}
+    </div>
+    <div class="wrapper">
+        <form class="section question-form" action="/create/question" method="post">
+            <div class="section question">
+                <div id="label"> Kysymys </div>
+                <div id="textarea"> <input class="question" type="text" name="question"> </div>
+            </div>
+            <div class="section choices">
+                <div id="radio"> <input class="choice-radio" type="radio" name="correct_choice" value="choice1" required></div>
+                <div id="label"> 1. vaihtoehto </div>
+                <div id="textarea"> <input class="choice" type="text" name="choice1"> </div>
+                <div id="radio"> <input class="choice-radio" type="radio" name="correct_choice" value="choice2"></div>
+                <div id="label"> 2. vaihtoehto </div>
+                <div id="textarea"> <input class="choice" type="text" name="choice2"> </div>
+                <div id="radio"> <input class="choice-radio" type="radio" name="correct_choice" value="choice3"></div>
+                <div id="label"> 3. vaihtoehto </div>
+                <div id="textarea"> <input class="choice" type="text" name="choice3"> </div>
+                <div id="radio"> <input class="choice-radio" type="radio" name="correct_choice" value="choice4"></div>
+                <div id="label"> 4. vaihtoehto </div>
+                <div id="textarea"> <input class="choice" type="text" name="choice4"> </div>
+            </div>
+            <input type="hidden" name="quiz_id" value={{quiz_id}}>
+            <input type="hidden" name="csrf_token" value={{session.csrf_token}}>
+            <div class="section nav-button">
+                <div id="quit"> <a class="quit" href={{url_for("stop", quiz_id=quiz_id)}}> Keskeytä </a></div>
+                <div id="next"> <input class="answer" type="submit" value="Lisää kysymys"> </div>
+            </div>
+        </form>
+    </div>
+    <div class="bottom bar">
+        <div class="bottom-item"></div>
+        <div class="bottom-item">
+            <div id="icons"> Käytetyt ikonit </div>
+        </div>
+        <div class="bottom-item">
+            <div id="source"> <a class="bottom" href="https://github.com/jukaveka/tsoha-visa"> Lähdekoodi </a> </div>
+        </div>
+        <div class="bottom-item">
+            <div id="contact"> <a class="bottom" href="mailto:jukaveka@ad.helsinki.fi"> Ota yhteyttä </a> </div>
+        </div>
+    </div>
+</body>

@@ -70,6 +70,31 @@ def get_quiz_reviews(quiz_id):
 
 	return reviews
 
+def stop_quiz_creation(quiz_id):
+
+	try:
+		sql = text("DELETE FROM choices WHERE question_id IN (SELECT id FROM questions WHERE quiz_id = :quiz_id)")
+		db.session.execute(sql, {"quiz_id":quiz_id})
+		db.session.commit()
+	except:
+		return False
+
+	try:
+		sql = text("DELETE FROM questions WHERE quiz_id = :quiz_id")
+		db.session.execute(sql, {"quiz_id":quiz_id})
+		db.session.commit()
+	except:
+		return False
+	
+	try:
+		sql = text("DELETE FROM quizzes WHERE id = :quiz_id")
+		db.session.execute(sql, {"quiz_id":quiz_id})
+		db.session.commit()
+	except:
+		return False
+	
+	return True
+
 def get_question(quiz_id, question_number):
 
 	sql = text(

@@ -68,6 +68,7 @@ def play():
 
 			abort(403)
 
+# Quitting games
 @app.route("/quit")
 def quit():
 
@@ -77,6 +78,17 @@ def quit():
 		return redirect("/browse")
 	else:
 		return render_template("error.html", message="Virhe pelin lopettamisessa")
+	
+# Stppping quiz creation
+@app.route("/stop")
+def stop():
+
+	quiz_id = request.args.get("quiz_id")
+
+	if quizzes.stop_quiz_creation(quiz_id):
+		return redirect("/")
+	else:
+		return render_template("error.html", message="Virhe visan luonnin lopettamisessa")
 		
 @app.route("/play/reviews/")
 def reviews():
